@@ -1,3 +1,4 @@
+
 ## Table des matières
 
 - [À propos](#à-propos)
@@ -68,13 +69,13 @@ Il suffit d'ouvrir le fichier `plugins\LoupGarou\config.yml` et de supprimer les
 Cela est possible pour les rôles `Loup-Garou`, `Villageois` et `Chasseur`.
 D'autres rôles peuvent aussi marcher mais n'ont pas été testés avec plusieurs joueurs ayant ce rôle dans une seule partie. C'est à vos risques et périls.
 
-##Indications pour les développeurs
+## Indications pour les développeurs
 
 Ce plugin LoupGarou ayant été modifiés de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre.
 De plus, il n'est pas documenté.  
 Cependant, si l'envie vous prend de modifier ou d'utiliser la totalité ou une partie du code présent dans cette repo, merci de créditer `leomelki` et `Shytoos`.
 
-###Ajouter des rôles
+### Ajouter des rôles
 
 Ce plugin de Loup-Garou est organisé autour d'un système d'évènements, disponnibles dans le package `fr.leomelki.loupgarou.events`.  
 N'ayant pas le temps de les documenter, vous devriez comprendre vous-même quand ils sont appelés.
@@ -84,12 +85,12 @@ Pour vous aider à créer des rôles, copiez des rôles ayant déjà été cré�
 ⚠️ Ce projet a été créé de façon à ce que les rôles soient - presque - totalement indépendants du reste du code (LGGame, LGPlayer...).  
 Merci de garder ça en tête lors du développement de nouveaux rôles : utilisez un maximum les évènements et, s'il en manque, créez les !
 
-####Quelques classes utiles
+#### Quelques classes utiles
 `LGGame` : Contient le coeur du jeu, à modifier le minimum possible !  
 `LGPlayer` : Classe utilisée pour interragir avec les joueurs et stocker leurs données, à modifier le minimum possible !  
 `LGVote` : Système gérant les votes  
 `RoleSort`: Classement de l'apparition des rôles durant la nuit.  
 
-###Publier un rôle
+### Publier un rôle
 
 Si vous arrivez à créer un rôle, je vous invite à faire une demande de publication dans cette repo afin de les faire partager à l'ensemble de la communauté !
