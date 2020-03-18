@@ -1,4 +1,5 @@
 
+
 ## Table des matières
 
 - [À propos](#à-propos)
@@ -71,9 +72,12 @@ D'autres rôles peuvent aussi marcher mais n'ont pas été testés avec plusieur
 
 ## Indications pour les développeurs
 
-Ce plugin LoupGarou ayant été modifiés de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre.
-De plus, il n'est pas documenté.  
-Cependant, si l'envie vous prend de modifier ou d'utiliser la totalité ou une partie du code présent dans cette repo, merci de créditer `leomelki` et `Shytoos`.
+Ce plugin LoupGarou ayant été modifiés de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre. De plus, il n'est pas documenté.  
+
+Vous devez utiliser `Lombok` et `Maven` pour modifier ce projet. 
+Vous devez aussi installer la repository `Spigot` avec [BuildTools](https://www.spigotmc.org/wiki/buildtools/).
+
+**Cependant, si l'envie vous prend de modifier ou d'utiliser la totalité ou une partie du code présent dans cette repo, merci de créditer `leomelki` et `Shytoos`.**
 
 ### Ajouter des rôles
 
