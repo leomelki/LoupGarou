@@ -7,10 +7,10 @@
 - [Crédits](#crédits)
 - [Aide](#aide)
   - [Questions fréquentes](#questions-fréquentes)
-- [Indications pour les développeurs](#indications-développeurs)
-  - [Ajouter des rôles](#ajouter-rôles)
-  - [Publier un rôle](#publier-rôle)
- 	 - [Quelques classes utiles](#classes-utiles)
+- [Indications pour les développeurs](#indications-pour-les-développeurs)
+  - [Ajouter des rôles](#ajouter-des-rôles)
+  - [Publier un rôle](#publier-un-rôle)
+ 	 - [Quelques classes utiles](#quelques-classes-utiles)
 
 ## À propos
 
