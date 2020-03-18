@@ -69,6 +69,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class LGGame implements Listener{
+	private static boolean autoStart = false;
+	
+	
 	@Getter private final SecureRandom random = new SecureRandom();
 	@Getter private final int maxPlayers;
 	@Getter private ArrayList<LGPlayer> inGame = new ArrayList<LGPlayer>();
@@ -189,7 +192,6 @@ public class LGGame implements Listener{
 				deaths.put(event.getReason(), player);
 		}
 	}
-	
 	@SuppressWarnings("deprecation")
 	public boolean tryToJoin(LGPlayer lgp) {
 		if(ended)return false;
@@ -231,7 +233,9 @@ public class LGGame implements Listener{
 			obj.sendPacket(lgp.getPlayer());
 			
 			Bukkit.getPluginManager().callEvent(new LGGameJoinEvent(this, lgp));
-			//updateStart();
+			//AutoStart
+			if(autoStart)
+				updateStart();
 			return true;
 		}
 		return false;

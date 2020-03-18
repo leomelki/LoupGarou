@@ -92,7 +92,7 @@ Merci de garder cela en tête lors du développement de nouveaux rôles : utilis
 #### Quelques classes utiles
 `LGGame` : Contient le coeur du jeu, à modifier le minimum possible !  
 `LGPlayer` : Classe utilisée pour intéragir avec les joueurs et stocker leurs données, à modifier le minimum possible !  
-`LGVote` : Système gérant les votes.
+`LGVote` : Système gérant les votes. 
 `RoleSort`: Classement de l'apparition des rôles durant la nuit. 
 
 ### Publier un rôle
