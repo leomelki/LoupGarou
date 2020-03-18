@@ -11,8 +11,8 @@
   - [Questions fréquentes](#questions-fréquentes)
 - [Indications pour les développeurs](#indications-pour-les-développeurs)
   - [Ajouter des rôles](#ajouter-des-rôles)
-  - [Publier un rôle](#publier-un-rôle)
  	 - [Quelques classes utiles](#quelques-classes-utiles)
+  - [Publier un rôle](#publier-un-rôle)
 
 ## À propos
 
@@ -72,28 +72,28 @@ D'autres rôles peuvent aussi marcher mais n'ont pas été testés avec plusieur
 
 ## Indications pour les développeurs
 
-Ce plugin LoupGarou ayant été modifiés de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre. De plus, il n'est pas documenté.  
+Ce plugin LoupGarou ayant été modifié de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre. Aussi, il n'est pas documenté.  
 
 Vous devez utiliser `Lombok` et `Maven` pour modifier ce projet. 
 Vous devez aussi installer la repository `Spigot` avec [BuildTools](https://www.spigotmc.org/wiki/buildtools/).
 
-**Cependant, si l'envie vous prend de modifier ou d'utiliser la totalité ou une partie du code présent dans cette repo, merci de créditer `leomelki` et `Shytoos`.**
+**Cependant, si l'envie vous prend de modifier ou d'utiliser le code ici présent en partie, ou dans sa totalité, merci de créditer [Leomelki](https://twitter.com/leomelki) et [Shytoos](https://twitter.com/shytoos_).**
 
 ### Ajouter des rôles
 
-Ce plugin de Loup-Garou est organisé autour d'un système d'évènements, disponnibles dans le package `fr.leomelki.loupgarou.events`.  
+Ce plugin de Loup-Garou est organisé autour d'un système d'événements, disponibles dans le package `fr.leomelki.loupgarou.events`.  
 N'ayant pas le temps de les documenter, vous devriez comprendre vous-même quand ils sont appelés.
 
 Pour vous aider à créer des rôles, copiez des rôles ayant déjà été créés pour ainsi les modifier.
 
-⚠️ Ce projet a été créé de façon à ce que les rôles soient - presque - totalement indépendants du reste du code (LGGame, LGPlayer...).  
-Merci de garder ça en tête lors du développement de nouveaux rôles : utilisez un maximum les évènements et, s'il en manque, créez les !
+⚠️ Ce projet a été créé de façon à ce que les rôles soient (presque) totalement indépendants du reste du code (LGGame, LGPlayer...).  
+Merci de garder cela en tête lors du développement de nouveaux rôles : utilisez un maximum les évènements et, s'il en manque, créez-les !
 
 #### Quelques classes utiles
 `LGGame` : Contient le coeur du jeu, à modifier le minimum possible !  
-`LGPlayer` : Classe utilisée pour interragir avec les joueurs et stocker leurs données, à modifier le minimum possible !  
-`LGVote` : Système gérant les votes  
-`RoleSort`: Classement de l'apparition des rôles durant la nuit.  
+`LGPlayer` : Classe utilisée pour intéragir avec les joueurs et stocker leurs données, à modifier le minimum possible !  
+`LGVote` : Système gérant les votes.
+`RoleSort`: Classement de l'apparition des rôles durant la nuit. 
 
 ### Publier un rôle
 
