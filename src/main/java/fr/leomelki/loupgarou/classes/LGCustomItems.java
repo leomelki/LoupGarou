@@ -46,6 +46,8 @@ public class LGCustomItems {
 		
 		Collections.sort(constraints);
 		HashMap<String, Material> mapps = mappings.get(player.getRole().getClass());
+		if(mapps == null)
+			return Material.AIR;//Lors du développement de rôles.
 		StringJoiner sj = new StringJoiner("_");
 		for(String s : constraints)
 			sj.add(s);
