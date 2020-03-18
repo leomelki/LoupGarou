@@ -58,3 +58,8 @@ Il faut taper la commande `/lg start <PSEUDO>` en mettant le pseudo d'un des jou
 - J'ai mal placés mes spawns ou je veux utiliser une nouvelle map, comment faire ?  
 
 Il suffit d'ouvrir le fichier `plugins\LoupGarou\config.yml` et de supprimer les points de spawn.
+
+- Puis-je mettre plusieurs fois le même rôle dans une seule partie ?
+
+Cela est possible pour les rôles `Loup-Garou`, `Villageois` et `Chasseur`.
+D'autres rôles peuvent aussi marcher mais n'ont pas été testés avec plusieurs joueurs ayant ce rôle dans une seule partie. C'est à vos risques et périls.

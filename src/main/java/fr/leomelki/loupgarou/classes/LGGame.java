@@ -335,7 +335,7 @@ public class LGGame implements Listener{
 		}.runTaskTimer(MainLg.getInstance(), 0, 4);
 	}
 	private void _start() {
-		broadcastMessage("§8Plugin développé par §e§lleomelki§8.\n§8Projet organisé par §e§lShytoos§8.\n");
+		broadcastMessage("§8Plugin développé par : §e§lLeomelki§8.\n§8Projet organisé par : §e§lShytoos§8.\n");
 		broadcastMessage("§8§oDébut de la partie...");
 		//Give roles...
 		ArrayList<LGPlayer> toGive = (ArrayList<LGPlayer>) inGame.clone();
