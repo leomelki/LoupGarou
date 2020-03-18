@@ -103,7 +103,6 @@ public class LGVote {
     }
 	private void end() {
 		ended = true;
-		System.out.println("end "+votes+" this");
 		for(LGPlayer lgp : viewers)
 			showVoting(lgp, null);
 		for(LGPlayer lgp : votes.keySet())
@@ -204,7 +203,6 @@ public class LGVote {
 			game.cancelWait();
 			callback.run();
 		}
-		System.out.println("total end "+votes+" - "+this);
 		
 	}
 	public LGChooseCallback getChooseCallback(LGPlayer who) {

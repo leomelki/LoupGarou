@@ -90,7 +90,6 @@ public class MainLg extends JavaPlugin{
 	
 	@Override
 	public void onEnable() {
-	//	Audio4WebPlugin.getMain().unRegisterPackets();
 		instance = this;
 		loadRoles();
 		if(!new File(getDataFolder(), "config.yml").exists()) {//Créer la config
@@ -115,12 +114,10 @@ public class MainLg extends JavaPlugin{
 		protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Server.UPDATE_TIME) {
 				@Override
 				public void onPacketSending(PacketEvent event) {
-				//	if (event.getPacketType() == PacketType.Play.Server.UPDATE_TIME) {
-						WrapperPlayServerUpdateTime time = new WrapperPlayServerUpdateTime(event.getPacket());
-						LGPlayer lgp = LGPlayer.thePlayer(event.getPlayer());
-						if(lgp.getGame() != null && lgp.getGame().getTime() != time.getTimeOfDay())
-							event.setCancelled(true);
-				//	}
+					WrapperPlayServerUpdateTime time = new WrapperPlayServerUpdateTime(event.getPacket());
+					LGPlayer lgp = LGPlayer.thePlayer(event.getPlayer());
+					if(lgp.getGame() != null && lgp.getGame().getTime() != time.getTimeOfDay())
+						event.setCancelled(true);
 				}
 			}
 		);
@@ -137,47 +134,43 @@ public class MainLg extends JavaPlugin{
 		protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Server.PLAYER_INFO) {
 			@Override
 			public void onPacketSending(PacketEvent event) {
-			//	if (event.getPacketType() == PacketType.Play.Server.PLAYER_INFO) {
-					LGPlayer player = LGPlayer.thePlayer(event.getPlayer());
-					WrapperPlayServerPlayerInfo info = new WrapperPlayServerPlayerInfo(event.getPacket());
-					ArrayList<PlayerInfoData> datas = new ArrayList<PlayerInfoData>();
-					for(PlayerInfoData data : info.getData()) {
-						LGPlayer lgp = LGPlayer.thePlayer(Bukkit.getPlayer(data.getProfile().getUUID()));
-						if(player.getGame() != null && player.getGame() == lgp.getGame()) {
-							LGUpdatePrefixEvent evt2 = new LGUpdatePrefixEvent(player.getGame(), lgp, player, "");
-							WrappedChatComponent displayName = data.getDisplayName();
-							Bukkit.getPluginManager().callEvent(evt2);
-							if(evt2.getPrefix().length() > 0) {
+				LGPlayer player = LGPlayer.thePlayer(event.getPlayer());
+				WrapperPlayServerPlayerInfo info = new WrapperPlayServerPlayerInfo(event.getPacket());
+				ArrayList<PlayerInfoData> datas = new ArrayList<PlayerInfoData>();
+				for(PlayerInfoData data : info.getData()) {
+					LGPlayer lgp = LGPlayer.thePlayer(Bukkit.getPlayer(data.getProfile().getUUID()));
+					if(player.getGame() != null && player.getGame() == lgp.getGame()) {
+						LGUpdatePrefixEvent evt2 = new LGUpdatePrefixEvent(player.getGame(), lgp, player, "");
+						WrappedChatComponent displayName = data.getDisplayName();
+						Bukkit.getPluginManager().callEvent(evt2);
+						if(evt2.getPrefix().length() > 0) {
 								try {
-									if(displayName != null) {
-										JSONObject obj = (JSONObject) new JSONParser().parse(displayName.getJson());
-										displayName = WrappedChatComponent.fromText(evt2.getPrefix()+obj.get("text"));
-									} else
-										displayName = WrappedChatComponent.fromText(evt2.getPrefix()+data.getProfile().getName());
-								} catch (ParseException e) {
-									e.printStackTrace();
-								}
+								if(displayName != null) {
+									JSONObject obj = (JSONObject) new JSONParser().parse(displayName.getJson());
+									displayName = WrappedChatComponent.fromText(evt2.getPrefix()+obj.get("text"));
+								} else
+									displayName = WrappedChatComponent.fromText(evt2.getPrefix()+data.getProfile().getName());
+							} catch (ParseException e) {
+								e.printStackTrace();
 							}
-							LGSkinLoadEvent evt = new LGSkinLoadEvent(lgp.getGame(), lgp, player, data.getProfile());
-							Bukkit.getPluginManager().callEvent(evt);
-							datas.add(new PlayerInfoData(evt.getProfile(), data.getLatency(), data.getGameMode(), displayName));
-						}else
-							datas.add(data);
-					}
-					info.setData(datas);
-			//	}
+						}
+						LGSkinLoadEvent evt = new LGSkinLoadEvent(lgp.getGame(), lgp, player, data.getProfile());
+						Bukkit.getPluginManager().callEvent(evt);
+						datas.add(new PlayerInfoData(evt.getProfile(), data.getLatency(), data.getGameMode(), displayName));
+					}else
+						datas.add(data);
+				}
+				info.setData(datas);
 			}
 		});
 		protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Server.UPDATE_HEALTH) {
 			@Override
 			public void onPacketSending(PacketEvent event) {
-			//	if (event.getPacketType() == PacketType.Play.Server.PLAYER_INFO) {
-					LGPlayer player = LGPlayer.thePlayer(event.getPlayer());
-					if(player.getGame() != null && player.getGame().isStarted()) {
-						WrapperPlayServerUpdateHealth health = new WrapperPlayServerUpdateHealth(event.getPacket());
-						health.setFood(6);
-					}
-			//	}
+				LGPlayer player = LGPlayer.thePlayer(event.getPlayer());
+				if(player.getGame() != null && player.getGame().isStarted()) {
+					WrapperPlayServerUpdateHealth health = new WrapperPlayServerUpdateHealth(event.getPacket());
+					health.setFood(6);
+				}
 			}
 		});
 		protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Server.SCOREBOARD_TEAM) {
@@ -202,14 +195,12 @@ public class MainLg extends JavaPlugin{
 		protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Server.ENTITY_EQUIPMENT) {
 			@Override
 			public void onPacketSending(PacketEvent event) {
-			//	if (event.getPacketType() == PacketType.Play.Server.ENTITY_EQUIPMENT) {
-					LGPlayer player = LGPlayer.thePlayer(event.getPlayer());
-					if(player.getGame() != null) {
-						WrapperPlayServerEntityEquipment equip = new WrapperPlayServerEntityEquipment(event.getPacket());
-						if(equip.getSlot() == ItemSlot.OFFHAND && equip.getEntityID() != player.getPlayer().getEntityId())
-							equip.setItem(new ItemStack(Material.AIR));
-					}
-		//		}
+				LGPlayer player = LGPlayer.thePlayer(event.getPlayer());
+				if(player.getGame() != null) {
+					WrapperPlayServerEntityEquipment equip = new WrapperPlayServerEntityEquipment(event.getPacket());
+					if(equip.getSlot() == ItemSlot.OFFHAND && equip.getEntityID() != player.getPlayer().getEntityId())
+						equip.setItem(new ItemStack(Material.AIR));
+				}
 			}
 		});
 	

@@ -103,7 +103,6 @@ public class LGPlayer {
 			titlePacket.setStay(stay);
 			titlePacket.setFadeOut(10);
 			titlePacket.sendPacket(player);
-			//player.sendTitle(title, subTitle);
 			
 			titlePacket = new WrapperPlayServerTitle();
 			titlePacket.setAction(TitleAction.TITLE);
@@ -185,14 +184,6 @@ public class LGPlayer {
 		if(getGame() != null && !isDead() && player != null) {
 			List<String> meList = Arrays.asList(getName());
 			for(LGPlayer lgp : getGame().getInGame()) {
-			/*	WrapperPlayServerScoreboardTeam team = new WrapperPlayServerScoreboardTeam();
-				LGUpdatePrefixEvent event = new LGUpdatePrefixEvent(getGame(), this, lgp, "");
-				Bukkit.getPluginManager().callEvent(event);
-				team.setPrefix(WrappedChatComponent.fromText(event.getPrefix()));
-				team.setMode(2);
-				team.setName(getName());
-				team.setPlayers(meList);
-				team.sendPacket(lgp.getPlayer());*/
 				WrapperPlayServerPlayerInfo info = new WrapperPlayServerPlayerInfo();
 				ArrayList<PlayerInfoData> infos = new ArrayList<PlayerInfoData>();
 				info.setAction(PlayerInfoAction.ADD_PLAYER);
@@ -313,13 +304,10 @@ public class LGPlayer {
 				if(lgp != this && lgp.getPlayer() != null)
 					lgp.getPlayer().hidePlayer(getPlayer());
 		muted = true;
-	/*	for(Player player : Bukkit.getOnlinePlayers())
-			Audio4WebPlugin.getMain().mute(getPlayer(), player);//On mute le joueur pour tout le monnde*/
 	}
 	public void resetMuted() {
 		muted = false;
 	}
-	//@Getter private ArrayList<LGPlayer> sendTo = new ArrayList<LGPlayer>();
 	
 	@Getter private LGChat chat;
 	
@@ -351,50 +339,17 @@ public class LGPlayer {
 	public void onChat(String message) {
 		if(chat != null) {
 			chat.sendMessage(this, message);
-		/*	if(getGame().isStarted()) {
-				if(isDead()) {
-					for(LGPlayer lgp : getGame().getInGame())
-						if(lgp.isDead() || sendTo.contains(lgp))
-							lgp.sendMessage("§8Spectateur §o§l"+getName()+" > §7§o"+message);
-				}else if(sendTo.size() != 0) {
-					for(LGPlayer lgp : getSendTo())
-						lgp.sendMessage("§6§o§l"+getName()+" > §e§o"+message);
-					sendMessage("§6§o§l"+getName()+" > §e§o"+message);
-				}
-			} else
-				getGame().broadcastMessage("§8§l"+getName()+" > §7"+message);*/
 		}
 	}
 	
 	
-	
-	/*public void mute(LGPlayer toMute) {
-		toMute.getSendTo().remove(this);
-	//	Audio4WebPlugin.getMain().mute(toMute.getPlayer(), getPlayer());
-	}*/
-	/*public void unMute(LGPlayer toUnMute) {
-		toUnMute.getSendTo().add(this);
-	//	Audio4WebPlugin.getMain().unMute(toUnMute.getPlayer(), getPlayer());
-	}*/
 	public void playAudio(LGSound sound, double volume) {
 		if(player != null)
 			getPlayer().playSound(getPlayer().getLocation(), sound.getSound(), (float)volume, 1);
-	/*	try {
-			System.out.println("send "+url+" to "+getName()+" at "+volume);
-			Audio4WebPlugin.getMain().askPlay(getPlayer(), url, volume);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 	public void stopAudio(LGSound sound) {
 		if(player != null)
 			getPlayer().stopSound(sound.getSound());
-	/*	try {
-			System.out.println("send "+url+" to "+getName()+" at "+volume);
-			Audio4WebPlugin.getMain().askPlay(getPlayer(), url, volume);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 	
 	long lastChoose;
