@@ -1,4 +1,5 @@
 
+  
 
 ## Table des matières
 
@@ -25,8 +26,17 @@ Le mode Loup-Garou est un mode inspiré du jeu de société [Les Loups-Garous de
 ## Installation
 
 **Minecraft 1.15.1 est requis.**  
-Déplacez simplement le plugin compilé [LoupGarou.jar](https://github.com/leomelki/LoupGarou/releases) dans le dossier `plugins` de votre serveur avant de le redémarrer.
+Pour installer le plug-in, merci de suivre les étapes suivantes:
+  - Téléchargez Spigot 1.15.1 et lancez une fois le serveur
+  - Dans le dossier `plugins`, insérez [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) et [LoupGarou.jar](https://github.com/leomelki/LoupGarou/releases)
+  - Redémarrez votre serveur puis donnez vous les permissions administrateur (/op <votre_pseudo> dans la console)
+  - Allez sur la map et ajoutez les points de spawn sur chaque dalle `/lg addSpawn`
+  - Connectez-vous au serveur et choisissez les rôles à utiliser avec `/lg roles set <ROLE> <MONTANT>`
+	  - ⚠️ Il faut qu'il y ait autant de places dans les rôles que de joueur pour lancer une partie
+  - Vous pouvez démarrer la partie avec `/lg start <pseudo>` 
+	  - ⚠️ N'oubliez pas de mettre votre pseudo. Exemple : `/lg start leomelki` 
 
+Lien des releases : [Cliquez ici](https://github.com/leomelki/LoupGarou/releases)
 ### Dépendances requises
 
 - [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
