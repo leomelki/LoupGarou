@@ -183,11 +183,9 @@ public class LGGame implements Listener{
 	}
 	
 	public void kill(LGPlayer player, Reason reason) {
-		System.out.println("Kill "+player.getName()+" ("+player.getRole()+") for "+reason+" ("+(!deaths.containsValue(player) && !player.isDead())+")");
 		if(!deaths.containsValue(player) && !player.isDead()){
 			LGNightPlayerPreKilledEvent event = new LGNightPlayerPreKilledEvent(this, player, reason);
 			Bukkit.getPluginManager().callEvent(event);
-			System.out.println("Mort de "+player.getName()+" cancel:"+event.isCancelled());
 			if(!event.isCancelled())
 				deaths.put(event.getReason(), player);
 		}
@@ -320,11 +318,13 @@ public class LGGame implements Listener{
 					return;
 				}
 				if(timeLeft == 5*2-1) {
-					broadcastMessage("§2Attribution des rôles...");
 					for(LGPlayer lgp : getInGame()) {
+						lgp.sendMessage("§8Plugin développé par : §e§lLeomelki§8.\n§8Projet organisé par : §e§lShytoos§8.\n");
+						lgp.sendTitle("", "§8§8Plugin LoupGarou par §e§lLeomelki§8 & §e§lShytoos", 40);
 						lgp.getPlayer().getInventory().clear();
 						lgp.getPlayer().updateInventory();
 					}
+					broadcastMessage("§2Attribution des rôles...");
 				}
 				
 				if(--actualRole < 0)
@@ -339,7 +339,6 @@ public class LGGame implements Listener{
 		}.runTaskTimer(MainLg.getInstance(), 0, 4);
 	}
 	private void _start() {
-		broadcastMessage("§8Plugin développé par : §e§lLeomelki§8.\n§8Projet organisé par : §e§lShytoos§8.\n");
 		broadcastMessage("§8§oDébut de la partie...");
 		//Give roles...
 		ArrayList<LGPlayer> toGive = (ArrayList<LGPlayer>) inGame.clone();
@@ -867,7 +866,6 @@ public class LGGame implements Listener{
 		Bukkit.getPluginManager().callEvent(event);
 		if(doEndGame && event.getWinType() != LGWinType.NONE)
 			endGame(event.getWinType());
-		System.out.println("Endgame check result > "+event.getWinType()+" ("+doEndGame+")");
 		return event.getWinType() != LGWinType.NONE;
 	}
 }

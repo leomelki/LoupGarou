@@ -63,7 +63,6 @@ public class RChasseur extends Role{
 		}, (currentPlayer, secondsLeft)->{
 			return currentPlayer == player ? "§9§lC'est à ton tour !" : "§6Le Chasseur choisit sa cible (§e"+secondsLeft+" s§6)";
 		});
-		System.out.println("tour de "+player.getName());
 		getGame().broadcastMessage("§9"+getBroadcastedTask());
 		player.sendMessage("§6"+getTask());
 		//player.sendTitle("§6C'est à vous de jouer", "§a"+getTask(), 60);
@@ -93,31 +92,24 @@ public class RChasseur extends Role{
 	
 	@EventHandler
 	public void onPlayerKill(LGPlayerKilledEvent e) {
-		System.out.println(e.getKilled().getRole()+" "+this);
-		if(e.getKilled().getRole() == this && e.getReason() != Reason.DISCONNECTED) {
+		if(e.getKilled().getRole() == this && e.getReason() != Reason.DISCONNECTED)
 			needToPlay.add(e.getKilled());
-			System.out.println("added");
-		}
 	}
 	@EventHandler
 	public void onDayStart(LGDayStartEvent e) {
 		if(e.getGame() != getGame())return;
-		System.out.println("day start "+needToPlay.size());
 		
 		if(needToPlay.size() > 0)
 			e.setCancelled(true);
 		
 		if(!e.isCancelled())return;
-		System.out.println("cancel");
 		new Runnable() {
 			public void run() {
 				if(needToPlay.size() == 0) {
-					System.out.println("finish");
 					e.getGame().startDay();
 					return;
 				}
 				LGPlayer player = needToPlay.remove(0);
-				System.out.println("> "+player.getName());
 				onNightTurn(player, this);
 			}
 		}.run();
@@ -126,22 +118,18 @@ public class RChasseur extends Role{
 	@EventHandler
 	public void onEndGame(LGGameEndEvent e) {
 		if(e.getGame() != getGame())return;
-		System.out.println("game end "+needToPlay.size());
 		
 		if(needToPlay.size() > 0)
 			e.setCancelled(true);
 		
 		if(!e.isCancelled())return;
-		System.out.println("cancel");
 		new Runnable() {
 			public void run() {
 				if(needToPlay.size() == 0) {
-					System.out.println("finish game");
 					e.getGame().checkEndGame(true);
 					return;
 				}
 				LGPlayer player = needToPlay.remove(0);
-				System.out.println(">>- "+player.getName());
 				onNightTurn(player, this);
 			}
 		}.run();

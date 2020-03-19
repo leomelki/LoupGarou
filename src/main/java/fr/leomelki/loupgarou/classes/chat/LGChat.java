@@ -18,23 +18,18 @@ public class LGChat {
 	}
 
 	public void sendMessage(LGPlayer sender, String message) {
-		System.out.println("sendmessage of "+sender.getName()+" "+this);
 		String sendMessage = getViewers().get(sender).send(sender, message);
-		for(Entry<LGPlayer, LGChatCallback> entry : viewers.entrySet()) {
-			System.out.println("   to "+entry.getKey().getName());
+		for(Entry<LGPlayer, LGChatCallback> entry : viewers.entrySet())
 			entry.getKey().sendMessage(sendMessage != null ? sendMessage : entry.getValue().receive(sender, message));
-		}
 	}
 
 	public void join(LGPlayer player, LGChatCallback callback) {
-		System.out.println("join "+player.getName()+" ! "+this);
 		if(getViewers().containsKey(player))
 			getViewers().replace(player, callback);
 		else
 			getViewers().put(player, callback);
 	}
 	public void leave(LGPlayer player) {
-		System.out.println("leave "+player.getName()+" ! "+this);
 		getViewers().remove(player);
 	}
 }

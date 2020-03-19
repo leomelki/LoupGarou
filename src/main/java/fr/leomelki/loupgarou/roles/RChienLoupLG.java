@@ -59,13 +59,11 @@ public class RChienLoupLG extends Role{
 	@Override
 	public void join(LGPlayer player, boolean sendMessage) {
 		super.join(player, sendMessage);
-		System.out.println(player.getName()+" a rejoint les LG (Chien Loup)");
 		player.setRole(this);
 		LGCustomItems.updateItem(player);
 		for(Role role : getGame().getRoles())
 			if(role instanceof RLoupGarou) {
 				role.join(player, false);
-				System.out.println(player.getName()+" -> Chien LG -> Camp trouvé & join");
 				for(LGPlayer lgp : role.getPlayers())
 					if(lgp != player)
 						lgp.sendMessage("§7§l"+player.getName()+"§6 a rejoint les §c§lLoups-Garous§6.");

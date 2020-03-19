@@ -230,8 +230,23 @@ public class MainLg extends JavaPlugin{
 					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().broadcastMessage("§cLa partie a été arrêtée de force !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("start")) {
+					if(args.length < 2) {
+						sender.sendMessage("§4Utilisation : §c/lg start <pseudo>");
+						return true;
+					}
+					Player player = Bukkit.getPlayer(args[1]);
+					if(player == null) {
+						sender.sendMessage("§4Erreur : §cLe joueur §4"+args[1]+"§c n'existe pas !");
+						return true;
+					}
+					LGPlayer lgp = LGPlayer.thePlayer(player);
+					if(MainLg.getInstance().getConfig().getList("spawns").size() < lgp.getGame().getMaxPlayers()) {
+						sender.sendMessage("§4Erreur : §cIl n'y a pas assez de points de spawn !");
+						sender.sendMessage("§8§oPour les définir, merci de faire §7/lg addSpawn");
+						return true;
+					}
 					sender.sendMessage("§aVous avez bien démarré une nouvelle partie !");
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().updateStart();
+					lgp.getGame().updateStart();
 					return true;
 				}else if(args[0].equalsIgnoreCase("reloadconfig")) {
 					sender.sendMessage("§aVous avez bien reload la config !");

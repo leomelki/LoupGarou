@@ -117,7 +117,6 @@ public class RLoupGarou extends Role{
 				boolean equal = false;
 				for(Entry<LGPlayer, List<LGPlayer>> entry : vote.getVotes().entrySet())
 					if(entry.getValue().size() > max) {
-						System.out.println(entry.getKey()+" has "+entry.getValue().size()+" vote(s)");
 						equal = false;
 						max = entry.getValue().size();
 						choosen = entry.getKey();
@@ -129,7 +128,6 @@ public class RLoupGarou extends Role{
 					for(Entry<LGPlayer, List<LGPlayer>> entry : vote.getVotes().entrySet())
 						if(entry.getValue().size() == max && entry.getKey().getRoleType() != RoleType.LOUP_GAROU)
 							choosable.add(entry.getKey());
-					System.out.println("Random choice for LG (removed lg from vote)");
 					if(choosable.size() > 0)
 						choosen = choosable.get(getGame().getRandom().nextInt(choosable.size()));
 				}
@@ -175,10 +173,8 @@ public class RLoupGarou extends Role{
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onUpdatePrefix (LGUpdatePrefixEvent e) {
 		if(e.getGame() == getGame())
-			if(getPlayers().contains(e.getTo()) && getPlayers().contains(e.getPlayer())) {
-				System.out.println("Prefix of "+e.getPlayer().getName()+" updated (lg) for "+e.getTo().getName());
+			if(getPlayers().contains(e.getTo()) && getPlayers().contains(e.getPlayer()))
 				e.setPrefix(e.getPrefix()+"§c");
-			}
 	}
 	
 	@EventHandler
