@@ -1,4 +1,5 @@
 
+
   
 
 ## Table des matières
@@ -6,6 +7,8 @@
 - [À propos](#à-propos)
 - [Installation](#installation)
   - [Dépendances requises](#dépendances-requises)
+  - [Installation classique](#installation-classique)
+  - [Installation avec docker (Alternative)](#installation-avec-docker-alternative)
 - [Commandes](#commandes)
 - [Crédits](#crédits)
 - [Aide](#aide)
@@ -25,6 +28,10 @@ Le mode Loup-Garou est un mode inspiré du jeu de société [Les Loups-Garous de
 
 ## Installation
 
+### Dépendances requises
+- [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
+
+### Installation classique
 **Minecraft 1.15.1 est requis.**  
 Pour installer le plug-in, merci de suivre les étapes suivantes:
   - Téléchargez Spigot 1.15.1 et lancez une fois le serveur
@@ -37,9 +44,33 @@ Pour installer le plug-in, merci de suivre les étapes suivantes:
 	  - ⚠️ N'oubliez pas de mettre votre pseudo. Exemple : `/lg start leomelki` 
 
 Lien des releases : [Cliquez ici](https://github.com/leomelki/LoupGarou/releases)
-### Dépendances requises
 
-- [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
+
+### Installation avec docker (Alternative)
+
+Vous devez avoir installé `docker` et `docker-compose` sur votre machine
+
+#### Installation du serveur
+```sh
+docker-compose up -d --build
+```
+
+#### Démarage du serveur
+
+Vous devez exécuter la commande suivante à chaque redémarage de votre machine avant de pouvoir continuer
+
+```sh
+docker-compose up -d
+```
+
+Ainsi, vous pouvez lancer le serveur en utilisant la commande suivante :
+
+```sh
+docker-compose exec loup-garou java -jar spigot.jar
+```
+
+Les fichiers relatifs à minecraft se situeront dans le dossier `minecraft_data` 
+> **Tip :** Il faut accepter les conditions d'utilisations de Mojang en modifiant le fichier `minecraft_data/eula.txt`
 
 ## Commandes
 
