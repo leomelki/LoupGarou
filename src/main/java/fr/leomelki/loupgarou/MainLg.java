@@ -225,9 +225,14 @@ public class MainLg extends JavaPlugin{
 					sender.sendMessage(prefix+"§aLa position a bien été ajoutée !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("end")) {
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().cancelWait();
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().endGame(LGWinType.EQUAL);
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().broadcastMessage("§cLa partie a été arrêtée de force !");
+					if(args.length < 2) {
+						sender.sendMessage("§4Utilisation : §c/lg end <pseudo>");
+						return true;
+					}
+					LGGame game = LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame();
+					game.cancelWait();
+					game.endGame(LGWinType.EQUAL);
+					game.broadcastMessage("§cLa partie a été arrêtée de force !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("start")) {
 					if(args.length < 2) {
