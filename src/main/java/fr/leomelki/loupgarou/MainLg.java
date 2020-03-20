@@ -276,7 +276,7 @@ public class MainLg extends JavaPlugin{
 						int index = 0;
 						for(String role : getRoles().keySet())
 							sender.sendMessage(prefix+"  §e- "+index+++" - §6"+role+" §e> "+MainLg.getInstance().getConfig().getInt("role."+role));
-						sender.sendMessage("\n"+prefix+" §7Écrivez §8§o/lg role set <role_id/role_name> <nombre>§7 pour définir le nombre de joueurs qui devrons avoir ce rôle.");
+						sender.sendMessage("\n"+prefix+" §7Écrivez §8§o/lg roles set <role_id/role_name> <nombre>§7 pour définir le nombre de joueurs qui devrons avoir ce rôle.");
 					} else {
 						if(args[1].equalsIgnoreCase("set") && args.length == 4) {
 							String role = null;
