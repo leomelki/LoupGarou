@@ -6,6 +6,7 @@
 - [À propos](#à-propos)
 - [Installation](#installation)
   - [Dépendances requises](#dépendances-requises)
+  - [Via Docker](#via-docker)
 - [Commandes](#commandes)
 - [Crédits](#crédits)
 - [Aide](#aide)
@@ -37,9 +38,36 @@ Pour installer le plug-in, merci de suivre les étapes suivantes:
 	  - ⚠️ N'oubliez pas de mettre votre pseudo. Exemple : `/lg start leomelki` 
 
 Lien des releases : [Cliquez ici](https://github.com/leomelki/LoupGarou/releases)
+
 ### Dépendances requises
 
 - [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
+
+### Via docker
+
+> Vous devez avoir installé sur votre PC **docker** et **docker-compose**
+
+#### Installation du serveur
+```sh
+docker-compose up -d --build
+```
+
+#### Démarage du serveur
+
+Vous devez executer la commande suivante à chaques redémarages de votre PC / serveur avant de pouvoir executer la commande suivante
+
+```sh
+docker-compose up -d
+```
+
+Puis vous pouvez lancer le serveur en utilisant la commande suivante :
+
+```sh
+docker-compose exec loup-garou java -jar spigot.jar
+```
+
+Les fichiers relatifs à minecraft se situeront dans le dossier `minecraft_data` 
+> **Tips :** Il faut accepter les conditions d'utilisations de Mojang en modifiant le fichier `minecraft_data/eula.txt`
 
 ## Commandes
 

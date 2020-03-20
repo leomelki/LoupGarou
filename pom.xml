@@ -8,6 +8,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
   <build>
+  <finalName>LoupGarou</finalName>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
