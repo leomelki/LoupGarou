@@ -54,13 +54,13 @@ docker-compose up -d --build
 
 #### Démarage du serveur
 
-Vous devez executer la commande suivante à chaques redémarages de votre PC / serveur avant de pouvoir executer la commande suivante
+Vous devez exécuter la commande suivante à chaque redémarage de votre machine avant de pouvoir continuer
 
 ```sh
 docker-compose up -d
 ```
 
-Puis vous pouvez lancer le serveur en utilisant la commande suivante :
+Ainsi, vous pouvez lancer le serveur en utilisant la commande suivante :
 
 ```sh
 docker-compose exec loup-garou java -jar spigot.jar
