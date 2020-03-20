@@ -1,4 +1,5 @@
 
+
   
 
 ## Table des matières
@@ -6,7 +7,8 @@
 - [À propos](#à-propos)
 - [Installation](#installation)
   - [Dépendances requises](#dépendances-requises)
-  - [Via Docker](#via-docker)
+  - [Installation classique](#installation-classique)
+  - [Installation avec docker (Alternative)](#installation-avec-docker-alternative)
 - [Commandes](#commandes)
 - [Crédits](#crédits)
 - [Aide](#aide)
@@ -26,6 +28,10 @@ Le mode Loup-Garou est un mode inspiré du jeu de société [Les Loups-Garous de
 
 ## Installation
 
+### Dépendances requises
+- [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
+
+### Installation classique
 **Minecraft 1.15.1 est requis.**  
 Pour installer le plug-in, merci de suivre les étapes suivantes:
   - Téléchargez Spigot 1.15.1 et lancez une fois le serveur
@@ -39,13 +45,10 @@ Pour installer le plug-in, merci de suivre les étapes suivantes:
 
 Lien des releases : [Cliquez ici](https://github.com/leomelki/LoupGarou/releases)
 
-### Dépendances requises
 
-- [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
+### Installation avec docker (Alternative)
 
-### Via docker
-
-> Vous devez avoir installé sur votre PC **docker** et **docker-compose**
+Vous devez avoir installé `docker` et `docker-compose` sur votre machine
 
 #### Installation du serveur
 ```sh
@@ -67,7 +70,7 @@ docker-compose exec loup-garou java -jar spigot.jar
 ```
 
 Les fichiers relatifs à minecraft se situeront dans le dossier `minecraft_data` 
-> **Tips :** Il faut accepter les conditions d'utilisations de Mojang en modifiant le fichier `minecraft_data/eula.txt`
+> **Tip :** Il faut accepter les conditions d'utilisations de Mojang en modifiant le fichier `minecraft_data/eula.txt`
 
 ## Commandes
 
