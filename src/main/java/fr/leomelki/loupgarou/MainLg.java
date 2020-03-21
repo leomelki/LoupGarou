@@ -225,9 +225,23 @@ public class MainLg extends JavaPlugin{
 					sender.sendMessage(prefix+"§aLa position a bien été ajoutée !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("end")) {
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().cancelWait();
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().endGame(LGWinType.EQUAL);
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().broadcastMessage("§cLa partie a été arrêtée de force !");
+					if(args.length != 2) {
+						sender.sendMessage("§4Utilisation : §c/lg end <pseudo>");
+						return true;
+					}
+					Player selected = Bukkit.getPlayer(args[1]);
+					if(selected == null) {
+						sender.sendMessage("§4Erreur : §cLe joueur §4"+args[1]+"§c n'est pas connecté.");
+						return true;
+					}
+					LGGame game = LGPlayer.thePlayer(selected).getGame();
+					if(game == null) {
+						sender.sendMessage("§4Erreur : §cLe joueur §4"+selected.getName()+"§c n'est pas dans une partie.");
+						return true;
+					}
+					game.cancelWait();
+					game.endGame(LGWinType.EQUAL);
+					game.broadcastMessage("§cLa partie a été arrêtée de force !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("start")) {
 					if(args.length < 2) {
@@ -240,6 +254,10 @@ public class MainLg extends JavaPlugin{
 						return true;
 					}
 					LGPlayer lgp = LGPlayer.thePlayer(player);
+					if(lgp.getGame() == null) {
+						sender.sendMessage("§4Erreur : §cLe joueur §4"+lgp.getName()+"§c n'est pas dans une partie.");
+						return true;
+					}
 					if(MainLg.getInstance().getConfig().getList("spawns").size() < lgp.getGame().getMaxPlayers()) {
 						sender.sendMessage("§4Erreur : §cIl n'y a pas assez de points de spawn !");
 						sender.sendMessage("§8§oPour les définir, merci de faire §7/lg addSpawn");
