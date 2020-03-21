@@ -14,7 +14,7 @@ WORKDIR /spigot
 RUN apt-get update
 ADD https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar buildtools.jar
 RUN git config --global --unset core.autocrlf || true
-RUN java -jar buildtools.jar --rev ${SPIGOT_VERSION}
+RUN java -Xmx1024M -jar buildtools.jar --rev ${SPIGOT_VERSION}
 
 # Final server image
 FROM openjdk:8
