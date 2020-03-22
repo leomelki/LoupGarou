@@ -23,3 +23,14 @@ hs_err_pid*
 
 # Minecraft data
 /minecraft_data
+
+# Intellij
+.idea/**/dictionaries
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+
+# Maven
+target/
