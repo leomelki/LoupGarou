@@ -26,6 +26,7 @@ hs_err_pid*
 
 # Intellij
 .idea/**/dictionaries
+.idea/**/workspace.xml
 
 *.iml
 modules.xml
