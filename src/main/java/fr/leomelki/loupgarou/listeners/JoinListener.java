@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -67,6 +68,10 @@ public class JoinListener implements Listener{
 			LGPlayer lgp = LGPlayer.thePlayer(p);
 			lgp.showView();
 			lgp.join(MainLg.getInstance().getCurrentGame());
+			if(p.hasPermission("loupgarou.admin")){
+				p.getInventory().setItem(1,new fr.leomelki.loupgarou.utils.ItemBuilder(Material.ENDER_EYE).setName("Choisir les rôles").build());
+				p.getInventory().setItem(3,new fr.leomelki.loupgarou.utils.ItemBuilder(Material.EMERALD).setName("Lancer la partie").build());
+			}
 		}else if(e.getStatus() == Status.DECLINED || e.getStatus() == Status.FAILED_DOWNLOAD)
 			e.getPlayer().kickPlayer(MainLg.getPrefix()+"§cIl vous faut le resourcepack pour jouer ! ("+e.getStatus()+")");
 	}

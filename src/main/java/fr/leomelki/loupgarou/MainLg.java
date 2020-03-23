@@ -210,6 +210,22 @@ public class MainLg extends JavaPlugin{
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(label.equalsIgnoreCase("lg")) {
+			if(args[0].equalsIgnoreCase("roles") && args.length == 1){
+				sender.sendMessage(prefix + "§6Voici la liste des rôles:");
+				int index = 0;
+				for (String role : getRoles().keySet())
+					if (MainLg.getInstance().getConfig().getInt("role." + role) > 0) {
+						sender.sendMessage(prefix + "  §e- §6" + role + " §e: " + MainLg.getInstance().getConfig().getInt("role." + role));
+					}
+			} else if (args[0].equalsIgnoreCase("roles") && args.length == 2){
+				if(args[1].equalsIgnoreCase("list")){
+					sender.sendMessage(prefix + "§6Voici la liste des rôles:");
+					int index = 0;
+					for (String role : getRoles().keySet())
+						sender.sendMessage(prefix + "  §e- " + index++ + " - §6" + role + " §e> " + MainLg.getInstance().getConfig().getInt("role." + role));
+					sender.sendMessage("\n" + prefix + " §7Écrivez §8§o/lg roles set <role_id/role_name> <nombre>§7 pour définir le nombre de joueurs qui devrons avoir ce rôle.");
+				}
+			}
 			if(!sender.hasPermission("loupgarou.admin")) {
 				sender.sendMessage(prefix+"§4Erreur: Vous n'avez pas la permission...");
 				return true;
@@ -304,13 +320,7 @@ public class MainLg extends JavaPlugin{
 					}
 					return true;
 				}else if(args[0].equalsIgnoreCase("roles")) {
-					if(args.length == 1 || args[1].equalsIgnoreCase("list")) {
-						sender.sendMessage(prefix+"§6Voici la liste des rôles:");
-						int index = 0;
-						for(String role : getRoles().keySet())
-							sender.sendMessage(prefix+"  §e- "+index+++" - §6"+role+" §e> "+MainLg.getInstance().getConfig().getInt("role."+role));
-						sender.sendMessage("\n"+prefix+" §7Écrivez §8§o/lg roles set <role_id/role_name> <nombre>§7 pour définir le nombre de joueurs qui devrons avoir ce rôle.");
-					} else {
+					if(args.length != 1 && !args[1].equalsIgnoreCase("list")) {
 						if(args[1].equalsIgnoreCase("set") && args.length == 4) {
 							String role = null;
 							if(args[2].length() <= 2)
