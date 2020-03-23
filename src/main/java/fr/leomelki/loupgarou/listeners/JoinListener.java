@@ -2,8 +2,10 @@ package fr.leomelki.loupgarou.listeners;
 
 import java.util.Arrays;
 
+import fr.leomelki.loupgarou.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,11 +23,11 @@ import fr.leomelki.loupgarou.classes.LGPlayer;
 import fr.leomelki.loupgarou.events.LGPlayerKilledEvent.Reason;
 
 public class JoinListener implements Listener{
-	
+
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
-		
+
 		WrapperPlayServerScoreboardTeam myTeam = new WrapperPlayServerScoreboardTeam();
 		myTeam.setName(p.getName());
 		myTeam.setPrefix(WrappedChatComponent.fromText(""));
@@ -41,11 +43,11 @@ public class JoinListener implements Listener{
 				team.setPrefix(WrappedChatComponent.fromText(""));
 				team.setPlayers(Arrays.asList(player.getName()));
 				team.setMode(0);
-				
+
 				team.sendPacket(p);
 				myTeam.sendPacket(player);
 			}
-		p.setFoodLevel(6);
+		p.setFoodLevel(20);
 		if(e.getJoinMessage() == null || !e.getJoinMessage().equals("joinall"))
 			p.getPlayer().setResourcePack("http://leomelki.fr/mcgames/ressourcepacks/v29/loup_garou.zip");
 		else {
@@ -67,6 +69,10 @@ public class JoinListener implements Listener{
 			LGPlayer lgp = LGPlayer.thePlayer(p);
 			lgp.showView();
 			lgp.join(MainLg.getInstance().getCurrentGame());
+			if(p.hasPermission("loupgarou.admin")){
+				p.getInventory().setItem(1,new ItemBuilder(Material.ENDER_EYE).setName("Choisir les rôles").build());
+				p.getInventory().setItem(3,new ItemBuilder(Material.EMERALD).setName("Lancer la partie").build());
+			}
 		}else if(e.getStatus() == Status.DECLINED || e.getStatus() == Status.FAILED_DOWNLOAD)
 			e.getPlayer().kickPlayer(MainLg.getPrefix()+"§cIl vous faut le resourcepack pour jouer ! ("+e.getStatus()+")");
 	}
@@ -84,5 +90,5 @@ public class JoinListener implements Listener{
 		LGPlayer.removePlayer(p);
 		lgp.remove();
 	}
-	
+
 }
