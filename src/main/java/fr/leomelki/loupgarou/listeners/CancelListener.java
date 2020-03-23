@@ -33,7 +33,7 @@ public class CancelListener implements Listener{
 	}
 	@EventHandler
 	public void onFood(FoodLevelChangeEvent e) {
-		e.setFoodLevel(20);
+		e.setFoodLevel(6);
 	}
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
@@ -44,10 +44,10 @@ public class CancelListener implements Listener{
 		e.setDeathMessage("");
 		e.setKeepInventory(true);
 	}
-	/*	@EventHandler
-        public void onAchievement(PlayerAchievementAwardedEvent e) {
-            e.setCancelled(true);
-        }*/
+/*	@EventHandler
+	public void onAchievement(PlayerAchievementAwardedEvent e) {
+		e.setCancelled(true);
+	}*/
 	@EventHandler
 	public void onEntitySpawn(EntitySpawnEvent e) {
 		e.setCancelled(true);
