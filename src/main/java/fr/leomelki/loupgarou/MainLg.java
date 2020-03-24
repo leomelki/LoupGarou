@@ -291,8 +291,13 @@ public class MainLg extends JavaPlugin{
 				}else if(args[0].equalsIgnoreCase("joinall")) {
 					for(Player p : Bukkit.getOnlinePlayers())
 						Bukkit.getPluginManager().callEvent(new PlayerQuitEvent(p, "joinall"));
-					for(Player p : Bukkit.getOnlinePlayers())
+					for(Player p : Bukkit.getOnlinePlayers()){
 						Bukkit.getPluginManager().callEvent(new PlayerJoinEvent(p, "joinall"));
+						if(p.getPlayer().hasPermission("loupgarou.admin")){
+							p.getPlayer().getInventory().setItem(1,new ItemBuilder(Material.ENDER_EYE).setName("Choisir les rôles").build());
+							p.getPlayer().getInventory().setItem(3,new ItemBuilder(Material.EMERALD).setName("Lancer la partie").build());
+						}
+					}
 					return true;
 				}else if(args[0].equalsIgnoreCase("reloadPacks")) {
 					for(Player p : Bukkit.getOnlinePlayers())
