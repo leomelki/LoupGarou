@@ -616,6 +616,10 @@ public class LGGame implements Listener{
 				team.setName("you_are");
 				team.sendPacket(lgp.getPlayer());
 				LGPlayer.thePlayer(lgp.getPlayer()).join(MainLg.getInstance().getCurrentGame());
+				if(lgp.getPlayer().hasPermission("loupgarou.admin")){
+					lgp.getPlayer().getInventory().setItem(1,new ItemBuilder(Material.ENDER_EYE).setName("Choisir les rôles").build());
+					lgp.getPlayer().getInventory().setItem(3,new ItemBuilder(Material.EMERALD).setName("Lancer la partie").build());
+				}
 			}
 		//A remettre pour activer le démarrage automatique
 	/*	wait(30, ()->{
