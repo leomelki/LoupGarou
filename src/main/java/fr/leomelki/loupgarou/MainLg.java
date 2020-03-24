@@ -8,6 +8,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import fr.leomelki.loupgarou.listeners.*;
+import fr.leomelki.loupgarou.listeners.*;
+import fr.leomelki.loupgarou.listeners.CancelListener;
+import fr.leomelki.loupgarou.listeners.ChatListener;
+import fr.leomelki.loupgarou.listeners.JoinListener;
+import fr.leomelki.loupgarou.listeners.LoupGarouListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -46,11 +52,6 @@ import fr.leomelki.loupgarou.classes.LGPlayer;
 import fr.leomelki.loupgarou.classes.LGWinType;
 import fr.leomelki.loupgarou.events.LGSkinLoadEvent;
 import fr.leomelki.loupgarou.events.LGUpdatePrefixEvent;
-import fr.leomelki.loupgarou.listeners.CancelListener;
-import fr.leomelki.loupgarou.listeners.ChatListener;
-import fr.leomelki.loupgarou.listeners.JoinListener;
-import fr.leomelki.loupgarou.listeners.LoupGarouListener;
-import fr.leomelki.loupgarou.listeners.VoteListener;
 import fr.leomelki.loupgarou.roles.RAnge;
 import fr.leomelki.loupgarou.roles.RAssassin;
 import fr.leomelki.loupgarou.roles.RBouffon;
@@ -101,6 +102,7 @@ public class MainLg extends JavaPlugin{
 		}
 		loadConfig();
 		Bukkit.getConsoleSender().sendMessage("/");
+		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(getRoles()), this);
 		Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
 		Bukkit.getPluginManager().registerEvents(new CancelListener(), this);
 		Bukkit.getPluginManager().registerEvents(new VoteListener(), this);
