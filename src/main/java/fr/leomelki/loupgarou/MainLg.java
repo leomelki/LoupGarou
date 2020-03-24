@@ -101,6 +101,7 @@ public class MainLg extends JavaPlugin{
 		}
 		loadConfig();
 		Bukkit.getConsoleSender().sendMessage("/");
+		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(getRoles()), this);
 		Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
 		Bukkit.getPluginManager().registerEvents(new CancelListener(), this);
 		Bukkit.getPluginManager().registerEvents(new VoteListener(), this);
