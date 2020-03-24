@@ -1,6 +1,7 @@
 package fr.leomelki.loupgarou.roles;
 
 public enum RoleSort {
+	Voleur,
 	ChienLoup,
 	EnfantSauvage,
 	Cupidon,
