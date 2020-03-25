@@ -431,6 +431,7 @@ public class MainLg extends JavaPlugin{
 			roles.put("Pretre", RPretre.class.getConstructor(LGGame.class));
 			roles.put("Faucheur", RFaucheur.class.getConstructor(LGGame.class));
 			roles.put("EnfantSauvage", REnfantSauvage.class.getConstructor(LGGame.class));
+			roles.put("ApprentiPretre", fr.leomelki.loupgarou.roles.RApprentiPretre.class.getConstructor(LGGame.class));
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
