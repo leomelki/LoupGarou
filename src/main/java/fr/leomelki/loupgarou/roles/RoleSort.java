@@ -6,6 +6,7 @@ public enum RoleSort {
 	Cupidon,
 	Garde,
 	Survivant,
+	LoupFeutrer,
 	Voyante,
 	Detective,
 	Dictateur,
