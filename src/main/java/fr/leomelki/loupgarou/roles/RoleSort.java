@@ -10,6 +10,7 @@ public enum RoleSort {
 	Detective,
 	Dictateur,
 	Pretre,
+	ApprentiPretre,
 	LoupGarou,
 	LoupGarouNoir,
 	GrandMechantLoup,
