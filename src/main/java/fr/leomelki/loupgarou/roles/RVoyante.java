@@ -54,8 +54,14 @@ public class RVoyante extends Role{
 			public void callback(LGPlayer choosen) {
 				if(choosen != null && choosen != player) {
 					//player.sendTitle("§6Vous avez regardé un rôle", "§e§l"+choosen.getName()+"§6§l est §e§l"+choosen.getRole().getName(), 5*20);
-					player.sendActionBarMessage("§e§l"+choosen.getName()+"§6 est §e§l"+choosen.getRole().getName());
-					player.sendMessage("§6Tu découvres que §7§l"+choosen.getName()+"§6 est "+choosen.getRole().getName()+"§6.");
+					if(choosen.getRole().getName().equals("§c§lLoup Feutrer")){
+						LGPlayer exemple = choosen.getCache().get("loup_ftr_e");
+						player.sendActionBarMessage("§e§l"+choosen.getName()+"§6 est §e§l"+exemple.getRole().getName());
+						player.sendMessage("§6Tu découvres que §7§l"+choosen.getName()+"§6 est "+exemple.getRole().getName()+"§6.");
+					} else {
+						player.sendActionBarMessage("§e§l"+choosen.getName()+"§6 est §e§l"+choosen.getRole().getName());
+						player.sendMessage("§6Tu découvres que §7§l"+choosen.getName()+"§6 est "+ choosen.getRole().getName()+"§6.");
+					}
 					player.stopChoosing();
 					player.hideView();
 					callback.run();
