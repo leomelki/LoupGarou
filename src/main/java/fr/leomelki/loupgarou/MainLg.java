@@ -92,11 +92,11 @@ public class MainLg extends JavaPlugin{
 	public void onEnable() {
 		instance = this;
 		loadRoles();
-		if(!new File(getDataFolder(), "config.yml").exists()) {//Créer la config
+		if(!new File(getDataFolder(), "config.yml").exists()) { // Creates configuration file.
 			FileConfiguration config = getConfig();
 			config.set("spawns", new ArrayList<List<Double>>());
-			for(String role : roles.keySet())//Nombre de participant pour chaque rôle
-				config.set("role."+role, 1);
+			for(String role : roles.keySet()) // Players number for each role
+				config.set("role." + role, 0);
 			saveConfig();
 		}
 		loadConfig();
