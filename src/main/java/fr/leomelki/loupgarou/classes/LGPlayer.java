@@ -64,6 +64,7 @@ public class LGPlayer {
 	@Getter @Setter private LGGame game;
 	@Getter @Setter private String latestObjective;
 	@Getter private CustomScoreboard scoreboard;
+        @Getter @Setter private String nick;
 	public LGPlayer(Player player) {
 		this.player = player;
 	}
@@ -120,7 +121,7 @@ public class LGPlayer {
 	}
 	private String name;
 	public String getName() {
-		return player != null ? getPlayer().getName() : name;
+                return this.nick != null ? this.nick : (player != null ? getPlayer().getName() : name);
 	}
 
 

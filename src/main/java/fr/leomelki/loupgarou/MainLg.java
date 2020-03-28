@@ -141,7 +141,7 @@ public class MainLg extends JavaPlugin{
 					LGPlayer lgp = LGPlayer.thePlayer(Bukkit.getPlayer(data.getProfile().getUUID()));
 					if(player.getGame() != null && player.getGame() == lgp.getGame()) {
 						LGUpdatePrefixEvent evt2 = new LGUpdatePrefixEvent(player.getGame(), lgp, player, "");
-						WrappedChatComponent displayName = data.getDisplayName();
+						WrappedChatComponent displayName = WrappedChatComponent.fromText(lgp.getName());
 						Bukkit.getPluginManager().callEvent(evt2);
 						if(evt2.getPrefix().length() > 0) {
 								try {
@@ -156,7 +156,7 @@ public class MainLg extends JavaPlugin{
 						}
 						LGSkinLoadEvent evt = new LGSkinLoadEvent(lgp.getGame(), lgp, player, data.getProfile());
 						Bukkit.getPluginManager().callEvent(evt);
-						datas.add(new PlayerInfoData(evt.getProfile(), data.getLatency(), data.getGameMode(), displayName));
+						datas.add(new PlayerInfoData(evt.getProfile().withName(lgp.getName()), data.getLatency(), data.getGameMode(), displayName));
 					}else
 						datas.add(data);
 				}
@@ -355,10 +355,38 @@ public class MainLg extends JavaPlugin{
 						}
 					}
 					return true;
-				}
+				}else if(args[0].equalsIgnoreCase("nick")) {
+					if(args.length == 3) {
+                                            Player player = Bukkit.getPlayer(args[1]);
+                                            if(player == null) {
+                                                    sender.sendMessage("§4Erreur : §cLe joueur §4"+args[1]+"§c n'existe pas !");
+                                                    return true;
+                                            }
+                                            LGPlayer lgp = LGPlayer.thePlayer(player);
+                                            if(lgp.getGame() == null) {
+                                                    sender.sendMessage("§4Erreur : §cLe joueur §4"+lgp.getName()+"§c n'est pas dans une partie.");
+                                                    return true;
+                                            }
+                                            sender.sendMessage("§7§o"+lgp.getName()+" s'appellera désormais §8§o"+args[2]+"§7§o !");
+                                            lgp.setNick(args[2]);
+                                            
+                                            for(LGPlayer other : getCurrentGame().getInGame()) {
+                                                    if(lgp != other) {
+                                                            lgp.getPlayer().hidePlayer(lgp.getPlayer());
+                                                            lgp.getPlayer().showPlayer(lgp.getPlayer());
+                                                    }
+                                            }
+                                            lgp.updatePrefix();
+                                            
+                                        }else{
+                                            sender.sendMessage(prefix+"§4Erreur: §cCommande incorrecte.");
+                                            sender.sendMessage(prefix+"§4Essayez §c/lg nick <pseudo_minecraft> <surnom>");
+                                        }
+                                        return true;
+                                }
 			}
 			sender.sendMessage(prefix+"§4Erreur: §cCommande incorrecte.");
-			sender.sendMessage(prefix+"§4Essayez /lg §caddSpawn/end/start/nextNight/nextDay/reloadConfig/roles/reloadPacks/joinAll");
+			sender.sendMessage(prefix+"§4Essayez /lg §caddSpawn/end/start/nextNight/nextDay/reloadConfig/roles/reloadPacks/joinAll/nick");
 			return true;
 		}
 		return false;
@@ -377,7 +405,7 @@ public class MainLg extends JavaPlugin{
 				else if(args.length == 4)
 					return Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 		}else if(args.length == 1)
-			return getStartingList(args[0], "addSpawn", "end", "start", "nextNight", "nextDay", "reloadConfig", "roles", "joinAll", "reloadPacks");
+			return getStartingList(args[0], "addSpawn", "end", "start", "nextNight", "nextDay", "reloadConfig", "roles", "joinAll", "reloadPacks", "nick");
 		return new ArrayList<String>(0);
 	}
 	private List<String> getStartingList(String startsWith, String... list){
