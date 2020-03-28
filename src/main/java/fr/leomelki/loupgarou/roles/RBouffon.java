@@ -124,6 +124,10 @@ public class RBouffon extends Role{
 		if(e.getKilled().getRole() == this && e.getReason() == Reason.VOTE) {
 			needToPlay.add(e.getKilled());
 			getGame().broadcastMessage("§9§oQuelle erreur, le "+getName()+"§9§o aura droit à sa vengeance...");
+			if(MainLg.getInstance().getEloPointsConfig().getConfig().getBoolean("ranked")){
+				getGame().broadcastMessage("§e"+e.getKilled().getPlayer().getDisplayName()+" était "+getName()+" donc il gagne §6"+MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.bouffon")+" points");
+				MainLg.getInstance().getEloConfig().getConfig().set(e.getKilled().getPlayer().getUniqueId()+".points", MainLg.getInstance().getEloConfig().getConfig().getInt(e.getKilled().getPlayer().getUniqueId()+".points")+MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.bouffon"));
+			}
 			e.getKilled().sendMessage("§6Tu as rempli ta mission, l'heure de la vengeance a sonné.");
 		}
 	}

@@ -123,6 +123,16 @@ public class LGPlayer {
 		return player != null ? getPlayer().getName() : name;
 	}
 
+	private String elo;
+	public String getElo(){
+		if(elo==null)
+			MainLg.getInstance().setRank(this);
+		return player != null ? elo : "";
+	}
+	public void setElo(String elo){
+		this.elo = elo;
+	}
+
 
 	public boolean join(LGGame game) {
 		if(getPlayer().getGameMode() == GameMode.SPECTATOR) {
