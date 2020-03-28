@@ -86,10 +86,10 @@ public class LGGame implements Listener{
 	@Getter private HashMap<Integer, LGPlayer> placements = new HashMap<Integer, LGPlayer>();
 	
 	@Getter private LGChat spectatorChat = new LGChat((sender, message) -> {
-		return "§7"+sender.getName()+" §6» §f"+message;
+		return sender.getElo()+" §7"+sender.getName()+" §6» §f"+message;
 	});
 	@Getter private LGChat dayChat = new LGChat((sender, message) -> {
-		return "§e"+sender.getName()+" §6» §f"+message;
+		return sender.getElo()+" §e"+sender.getName()+" §6» §f"+message;
 	});
 	
 	
@@ -521,9 +521,14 @@ public class LGGame implements Listener{
 			
 			if(vote != null)
 				vote.remove(killed);
-			
-			broadcastMessage(String.format(reason.getMessage(), killed.getName())+", il était "+killed.getRole().getName()+(killed.getCache().getBoolean("infected") ? " §c§l(Infecté)" : "")+"§4.");
-			
+
+			if(MainLg.getInstance().getEloPointsConfig().getConfig().getBoolean("ranked") && killed.getCache().has("inlove")){
+				int points = MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.couple");
+				broadcastMessage(String.format(reason.getMessage(), killed.getName()) + ", il était " + killed.getRole().getName() + (killed.getCache().getBoolean("infected") ? " §c§l(Infecté)" : "") + "§4, "+(points >= 0 ? "+" : "")+""+points+" points.");
+				MainLg.getInstance().getEloConfig().getConfig().set(killed.getPlayer().getUniqueId()+".points", MainLg.getInstance().getEloConfig().getConfig().getInt(killed.getPlayer().getUniqueId()+".points")+points);
+			} else {
+				broadcastMessage(String.format(reason.getMessage(), killed.getName()) + ", il était " + killed.getRole().getName() + (killed.getCache().getBoolean("infected") ? " §c§l(Infecté)" : "") + "§4.");
+			}
 			//Lightning effect
 			killed.getPlayer().getWorld().strikeLightningEffect(killed.getPlayer().getLocation());
 			
@@ -585,7 +590,86 @@ public class LGGame implements Listener{
 			HandlerList.unregisterAll(role);
 		
 		broadcastMessage(winType.getMessage());
+		broadcastMessage("§6§lRécapitulatif des rôles:");
 		for(LGPlayer lgp : getInGame()) {
+			int points = 0;
+			if (MainLg.getInstance().getEloPointsConfig().getConfig().getBoolean("ranked")) {
+				if (winners.contains(lgp)) {
+					if (winType == fr.leomelki.loupgarou.classes.LGWinType.EQUAL) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.egalite");
+						//win égalité
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.VILLAGEOIS) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.villageois");
+						//win villageois
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.NONE && lgp.getRole().getName().equals("§d§lSurvivant")) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.survivant");
+						//win villageois
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.LOUPGAROU) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.loupgarou");
+						//win lg
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.LOUPGAROUBLANC) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.loupgaroublanc");
+						//win lg blanc
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.COUPLE) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.couple");
+						//win couple
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.ANGE) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.ange");
+						//win ange
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.ASSASSIN) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.assassin");
+						//win assassin
+					} else if (winType == fr.leomelki.loupgarou.classes.LGWinType.PYROMANE) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.win.pyromane");
+						//win pyro
+					}
+				} else {
+					if (winType == fr.leomelki.loupgarou.classes.LGWinType.EQUAL) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.egalite");
+						//win égalité
+					} else if (lgp.getRoleType() == RoleType.NEUTRAL) {
+						switch (lgp.getRole().getName()) {
+							case "§d§lBouffon":
+								points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.bouffon");
+								//loose bouffon
+								break;
+							case "§d§lSurvivant":
+								points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.survivant");
+								//loose survivant
+								break;
+							case "§6§lPyromane":
+								points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.pyromane");
+								//loose pyro
+								break;
+							case "§1§lAssassin":
+								points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.assassin");
+								//loose assassin
+								break;
+						}
+					} else if (lgp.getRoleType() == RoleType.VILLAGER) {
+						points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.villageois");
+						//loose villageois
+					} else if (lgp.getRoleType() == RoleType.LOUP_GAROU) {
+						if (lgp.getRole().getName().equals("§c§lLoup Blanc")) {
+							points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.loupgaroublanc");
+							//loose lg blanc
+						} else {
+							points += MainLg.getInstance().getEloPointsConfig().getConfig().getInt("points.loose.loupgarou");
+							//loose lg
+						}
+					}
+				}
+
+				broadcastMessage("§e   " + lgp.getName() + " était §l" + lgp.getRole().getName() + "§l§7, " + (points >= 0 ? "+" : "") + "" + points + " points");//, " + str);
+				MainLg.getInstance().getEloConfig().getConfig().set(lgp.getPlayer().getUniqueId() + ".points", MainLg.getInstance().getEloConfig().getConfig().getInt(lgp.getPlayer().getUniqueId() + ".points") + points);
+				if (MainLg.getInstance().getEloConfig().getConfig().getInt(lgp.getPlayer().getUniqueId() + ".points") < 0) {
+					MainLg.getInstance().getEloConfig().getConfig().set(lgp.getPlayer().getUniqueId() + ".points", 0);
+				}
+
+			} else {
+				broadcastMessage("§e   " + lgp.getName() + " était §l" + lgp.getRole().getName());
+			}
+
 			lgp.leaveChat();
 			lgp.joinChat(spectatorChat);
 			
@@ -607,6 +691,7 @@ public class LGGame implements Listener{
 			p.removePotionEffect(PotionEffectType.JUMP);
 			p.setWalkSpeed(0.2f);
 		}
+		MainLg.getInstance().getEloConfig().save();
 		
 		for(LGPlayer lgp : getInGame())
 			if(lgp.getPlayer().isOnline()) {
