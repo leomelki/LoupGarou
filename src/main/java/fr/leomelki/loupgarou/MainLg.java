@@ -369,14 +369,15 @@ public class MainLg extends JavaPlugin{
                                             }
                                             sender.sendMessage("§7§o"+lgp.getName()+" s'appellera désormais §8§o"+args[2]+"§7§o !");
                                             lgp.setNick(args[2]);
-                                            
                                             for(LGPlayer other : getCurrentGame().getInGame()) {
                                                     if(lgp != other) {
-                                                            lgp.getPlayer().hidePlayer(lgp.getPlayer());
-                                                            lgp.getPlayer().showPlayer(lgp.getPlayer());
+                                                            other.getPlayer().hidePlayer(MainLg.getInstance(), lgp.getPlayer());
+                                                            other.getPlayer().showPlayer(MainLg.getInstance(), lgp.getPlayer());
                                                     }
                                             }
                                             lgp.updatePrefix();
+                                            lgp.updateSkin();
+                                            lgp.updateOwnSkin();
                                             
                                         }else{
                                             sender.sendMessage(prefix+"§4Erreur: §cCommande incorrecte.");
