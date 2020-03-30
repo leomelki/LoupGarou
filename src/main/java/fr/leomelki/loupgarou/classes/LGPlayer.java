@@ -121,7 +121,7 @@ public class LGPlayer {
 	}
 	private String name;
 	public String getName() {
-                return this.nick != null ? this.nick : (player != null ? getPlayer().getName() : name);
+                return (this.nick != null ? this.nick : (player != null ? getPlayer().getName() : name))+" ";
 	}
 
 

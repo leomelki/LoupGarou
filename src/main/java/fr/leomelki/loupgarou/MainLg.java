@@ -141,7 +141,7 @@ public class MainLg extends JavaPlugin{
 					LGPlayer lgp = LGPlayer.thePlayer(Bukkit.getPlayer(data.getProfile().getUUID()));
 					if(player.getGame() != null && player.getGame() == lgp.getGame()) {
 						LGUpdatePrefixEvent evt2 = new LGUpdatePrefixEvent(player.getGame(), lgp, player, "");
-						WrappedChatComponent displayName = WrappedChatComponent.fromText(lgp.getName());
+						WrappedChatComponent displayName = data.getDisplayName();
 						Bukkit.getPluginManager().callEvent(evt2);
 						if(evt2.getPrefix().length() > 0) {
 								try {
@@ -376,8 +376,6 @@ public class MainLg extends JavaPlugin{
                                                     }
                                             }
                                             lgp.updatePrefix();
-                                            lgp.updateSkin();
-                                            lgp.updateOwnSkin();
                                             
                                         }else{
                                             sender.sendMessage(prefix+"§4Erreur: §cCommande incorrecte.");
