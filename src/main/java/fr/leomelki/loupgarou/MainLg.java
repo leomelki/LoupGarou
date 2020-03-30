@@ -368,6 +368,17 @@ public class MainLg extends JavaPlugin{
                                                     return true;
                                             }
                                             sender.sendMessage("§7§o"+lgp.getName()+" s'appellera désormais §8§o"+args[2]+"§7§o !");
+                                            Player detect = Bukkit.getPlayer(args[2]);
+                                            if(detect != null) {    
+                                                    sender.sendMessage("§4Erreur : §cCe surnom est déjà le pseudo d'un joueur !");
+                                                    return true;
+                                            }
+                                            for(LGPlayer other : getCurrentGame().getInGame()) {
+                                                    if(other.getName() == args[2]){ 
+                                                        sender.sendMessage("§4Erreur : §cCe surnom est déjà le surnom d'un joueur !");
+                                                        return true;
+                                                    }
+                                            }
                                             lgp.setNick(args[2]);
                                             for(LGPlayer other : getCurrentGame().getInGame()) {
                                                     if(lgp != other) {
