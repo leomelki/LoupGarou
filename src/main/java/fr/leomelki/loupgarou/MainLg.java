@@ -144,7 +144,7 @@ public class MainLg extends JavaPlugin{
 						WrappedChatComponent displayName = data.getDisplayName();
 						Bukkit.getPluginManager().callEvent(evt2);
 						if(evt2.getPrefix().length() > 0) {
-								try {
+							try {
 								if(displayName != null) {
 									JSONObject obj = (JSONObject) new JSONParser().parse(displayName.getJson());
 									displayName = WrappedChatComponent.fromText(evt2.getPrefix()+obj.get("text"));
@@ -154,9 +154,19 @@ public class MainLg extends JavaPlugin{
 								e.printStackTrace();
 							}
 						}
+
+                                                try{
+                                                        if (lgp.getNick()!=null){
+                                                            JSONObject obj = (JSONObject) new JSONParser().parse(displayName.getJson());
+                                                            displayName = WrappedChatComponent.fromText( obj.get("text") + " §l" + lgp.getName());
+                                                        }
+                                                } catch (ParseException e) {
+							e.printStackTrace();
+						}
+
 						LGSkinLoadEvent evt = new LGSkinLoadEvent(lgp.getGame(), lgp, player, data.getProfile());
 						Bukkit.getPluginManager().callEvent(evt);
-						datas.add(new PlayerInfoData(evt.getProfile().withName(lgp.getName()), data.getLatency(), data.getGameMode(), displayName));
+						datas.add(new PlayerInfoData(evt.getProfile(), data.getLatency(), data.getGameMode(), displayName));
 					}else
 						datas.add(data);
 				}
@@ -189,6 +199,8 @@ public class MainLg extends JavaPlugin{
 						team.setPrefix(WrappedChatComponent.fromText(evt2.getPrefix()));
 					else
 						team.setPrefix(WrappedChatComponent.fromText("§f"));
+                                        if (lgp.getNick() != null)
+                                            team.setSuffix(WrappedChatComponent.fromText(" §l" + lgp.getName()));
 				}
 			}
 		});
@@ -367,14 +379,13 @@ public class MainLg extends JavaPlugin{
                                                     sender.sendMessage("§4Erreur : §cLe joueur §4"+lgp.getName()+"§c n'est pas dans une partie.");
                                                     return true;
                                             }
-                                            sender.sendMessage("§7§o"+lgp.getName()+" s'appellera désormais §8§o"+args[2]+"§7§o !");
                                             Player detect = Bukkit.getPlayer(args[2]);
                                             if(detect != null) {    
                                                     sender.sendMessage("§4Erreur : §cCe surnom est déjà le pseudo d'un joueur !");
                                                     return true;
                                             }
                                             for(LGPlayer other : getCurrentGame().getInGame()) {
-                                                    if(other.getName() == args[2]){ 
+                                                    if(args[2].equalsIgnoreCase(other.getNick())){
                                                         sender.sendMessage("§4Erreur : §cCe surnom est déjà le surnom d'un joueur !");
                                                         return true;
                                                     }
@@ -387,6 +398,7 @@ public class MainLg extends JavaPlugin{
                                                     }
                                             }
                                             lgp.updatePrefix();
+                                            sender.sendMessage("§7§o"+lgp.getName(true)+" s'appellera désormais §8§o"+args[2]+"§7§o !");
                                             
                                         }else{
                                             sender.sendMessage(prefix+"§4Erreur: §cCommande incorrecte.");

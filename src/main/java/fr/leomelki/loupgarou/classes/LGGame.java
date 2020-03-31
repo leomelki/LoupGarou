@@ -513,7 +513,7 @@ public class LGGame implements Listener{
 					WrapperPlayServerPlayerInfo info = new WrapperPlayServerPlayerInfo();
 					ArrayList<PlayerInfoData> infos = new ArrayList<PlayerInfoData>();
 					info.setAction(PlayerInfoAction.REMOVE_PLAYER);
-					infos.add(new PlayerInfoData(new WrappedGameProfile(lgp.getPlayer().getUniqueId(), lgp.getName()), 0, NativeGameMode.ADVENTURE, WrappedChatComponent.fromText(lgp.getName())));
+					infos.add(new PlayerInfoData(new WrappedGameProfile(lgp.getPlayer().getUniqueId(), lgp.getName(true)), 0, NativeGameMode.ADVENTURE, WrappedChatComponent.fromText(lgp.getName(true))));
 					info.setData(infos);
 					info.sendPacket(lgp.getPlayer());
 				}else
