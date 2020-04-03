@@ -1,5 +1,6 @@
 package fr.leomelki.loupgarou.classes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.comphenix.protocol.wrappers.EnumWrappers.NativeGameMode;
 import com.comphenix.protocol.wrappers.EnumWrappers.PlayerInfoAction;
@@ -141,6 +144,7 @@ public class LGPlayer {
 			updateOwnSkin();
 			getPlayer().setWalkSpeed(0.2f);
 	//		sendMessage("§2Vous venez de rejoindre une partie de Loup-Garou. §aBon jeu!");
+
 			return true;
 		}
 		return false;

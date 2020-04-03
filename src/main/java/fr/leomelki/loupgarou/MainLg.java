@@ -2,6 +2,7 @@ package fr.leomelki.loupgarou;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -87,6 +89,8 @@ public class MainLg extends JavaPlugin{
 	@Getter private static String prefix = ""/*"§7[§9Loup-Garou§7] "*/;
 	
 	@Getter @Setter private LGGame currentGame;//Because for now, only one game will be playable on one server (flemme)
+
+        static public FileConfiguration nicksFile;
 	
 	@Override
 	public void onEnable() {
@@ -100,6 +104,15 @@ public class MainLg extends JavaPlugin{
 			saveConfig();
 		}
 		loadConfig();
+
+                File f = new File(getDataFolder(), "nicks.yml");
+                nicksFile = YamlConfiguration.loadConfiguration(f);
+                try{
+                        nicksFile.save(f);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+
 		Bukkit.getConsoleSender().sendMessage("/");
 		Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
 		Bukkit.getPluginManager().registerEvents(new CancelListener(), this);
@@ -399,7 +412,13 @@ public class MainLg extends JavaPlugin{
                                             }
                                             lgp.updatePrefix();
                                             sender.sendMessage("§7§o"+lgp.getName(true)+" s'appellera désormais §8§o"+args[2]+"§7§o !");
-                                            
+                                            nicksFile.set(lgp.getPlayer().getUniqueId().toString(), args[2]);
+                                            File f = new File(getDataFolder(), "nicks.yml");
+                                            try{
+                                                    nicksFile.save(f);
+                                            } catch (IOException e) {
+                                                    sender.sendMessage("§4Erreur : §cImpossible de sauvegarder le surnom");
+                                            }
                                         }else{
                                             sender.sendMessage(prefix+"§4Erreur: §cCommande incorrecte.");
                                             sender.sendMessage(prefix+"§4Essayez §c/lg nick <pseudo_minecraft> <surnom>");

@@ -222,6 +222,13 @@ public class LGGame implements Listener{
 			}
 			
 			lgp.getPlayer().setGameMode(GameMode.ADVENTURE);
+
+                        String fNick = MainLg.nicksFile.getString(lgp.getPlayer().getUniqueId().toString());
+                        if (fNick!=null){
+                            lgp.setNick(fNick);
+                            lgp.updatePrefix();
+                        }
+
 			broadcastMessage("§7Le joueur §8"+lgp.getName()+"§7 a rejoint la partie §9(§8"+inGame.size()+"§7/§8"+maxPlayers+"§9)");
 			
 			//Reset scoreboard
