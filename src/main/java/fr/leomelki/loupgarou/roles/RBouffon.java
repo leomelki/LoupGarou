@@ -90,10 +90,10 @@ public class RBouffon extends Role{
 		List<LGPlayer> choosable = getGame().getVote().getVotes(player);
 		StringJoiner sj = new StringJoiner("§6§o, §6§o§l");
 		for(LGPlayer lgp : choosable)
-			if(lgp.getPlayer() != null && lgp.getPlayer() != player)
+			if(lgp.getPlayer() != null && lgp != player)
 				sj.add(lgp.getName());
 		
-		player.sendMessage("§6§o§l"+sj+"§6§o "+(sj.length() > 1 ? "ont" : "a")+" voté pour toi.");
+		player.sendMessage("§6§o§l"+sj+"§6§o "+(choosable.size() > 1 ? "ont" : "a")+" voté pour toi.");
 				
 		player.choose((choosen)->{
 			if(choosen != null) {
