@@ -168,14 +168,14 @@ public class MainLg extends JavaPlugin{
 							}
 						}
 
-                                                try{
-                                                        if (lgp.getNick()!=null){
-                                                            JSONObject obj = (JSONObject) new JSONParser().parse(displayName.getJson());
-                                                            displayName = WrappedChatComponent.fromText( obj.get("text") + " §l" + lgp.getName());
-                                                        }
-                                                } catch (ParseException e) {
-							e.printStackTrace();
-						}
+                                                //try{
+                                                //        if (lgp.getNick()!=null){
+                                                            //JSONObject obj = (JSONObject) new JSONParser().parse(displayName.getJson());
+                                                            //displayName = WrappedChatComponent.fromText( obj.get("text") + " §l" + lgp.getName());
+                                                //        }
+                                                //} catch (ParseException e) {
+						//	e.printStackTrace();
+						//}
 
 						LGSkinLoadEvent evt = new LGSkinLoadEvent(lgp.getGame(), lgp, player, data.getProfile());
 						Bukkit.getPluginManager().callEvent(evt);
