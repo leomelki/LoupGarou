@@ -1,91 +1,97 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>fr.leomelki</groupId>
-  <artifactId>LoupGarou</artifactId>
-  <version>1.0.1</version>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
-  <build>
-  <finalName>LoupGarou</finalName>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-        <plugin>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <configuration>
-            <source>${project.java.version}</source>
-            <target>${project.java.version}</target>
-            <encoding>${project.build.sourceEncoding}</encoding>
-            <descriptorRefs>
-              <descriptorRef>jar-with-dependencies</descriptorRef>
-            </descriptorRefs>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-          <configuration>
-            <encoding>${project.build.sourceEncoding}</encoding>
-          </configuration>
-        </plugin>
-      </plugins>
-    <resources>
-        <resource>
-            <directory>src/main/java</directory>
-            <includes>
-                 <include>plugin.yml</include>
-            </includes>
-        </resource>
-    </resources>
-  </build>
-  <repositories>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.leomelki</groupId>
+    <artifactId>LoupGarou</artifactId>
+    <version>1.0.1</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <build>
+        <finalName>LoupGarou</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.2.0</version>
+
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+
         <repository>
             <id>dmulloy2-repo</id>
             <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
-          </repository>
-        <!--Bungeecord Repo-->
-        <!--Only include if using the Spigot API dependency-->
+        </repository>
+
         <repository>
-           <id>bungeecord-repo</id>
-           <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.15.1-R0.1-SNAPSHOT</version>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20180813</version>
         </dependency>
-          <dependency>
+
+        <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>4.4.0</version>
-          </dependency>
-          <dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <version>1.18.10</version>
-		    <scope>provided</scope>
-		</dependency>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
     </dependencies>
 </project>

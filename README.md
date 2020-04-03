@@ -38,9 +38,9 @@ Pendant le confinement, un serveur est mis à votre disposition pour vous permet
 - [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
 
 ### Installation classique
-**Minecraft 1.15.1 est requis.**  
+**Minecraft 1.15.2 est requis.**  
 Pour installer le plug-in, merci de suivre les étapes suivantes:
-  - Téléchargez Spigot 1.15.1 et lancez une fois le serveur
+  - Téléchargez Spigot 1.15.2 et lancez une fois le serveur
   - Dans le dossier `plugins`, insérez [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) et [LoupGarou.jar](https://github.com/leomelki/LoupGarou/releases)
   - Redémarrez votre serveur puis donnez vous les permissions administrateur (/op <votre_pseudo> dans la console)
   - Allez sur la map et ajoutez les points de spawn sur chaque dalle `/lg addSpawn`
