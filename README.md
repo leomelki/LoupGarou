@@ -1,5 +1,6 @@
 
 
+
   
 
 ## Table des matières
@@ -28,9 +29,10 @@ Le mode Loup-Garou est un mode inspiré du jeu de société [Les Loups-Garous de
 - Utilisable sur n'importe quelle map
 
 ## Jouer facilement
-Pendant le confinement, un serveur est mis à votre disposition pour vous permettre de jouer au LoupGarou rapidement et facilement entre amis. Vous avez juste à créer une partie et envoyer l'ip qui vous est donnée dans le chat à vos amis !
+Un serveur est mis à votre disposition pour vous permettre de jouer au LoupGarou rapidement et facilement entre amis ou avec des inconnus. Vous avez juste à créer une partie et y inviter vos amis, ou à rejoindre des parties publiques.
 
 **IP:** `lg.leomelki.fr`
+**Version:** `1.9.4`
 
 ## Installation
 
