@@ -58,7 +58,7 @@ public class RFaucheur extends Role{
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onKill(LGPlayerKilledEvent e) {
-		if (e.getKilled().getRole() == this) {
+		if (e.getKilled().getRole() == this && e.getKilled().isRoleActive()) {
 			LGPlayer killed = e.getKilled();
 			if(killed.getCache().getBoolean("faucheur_did"))//A déjà fait son coup de faucheur !
 				return;

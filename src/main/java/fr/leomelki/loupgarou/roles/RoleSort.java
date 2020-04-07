@@ -16,6 +16,8 @@ public enum RoleSort {
 	LoupGarouBlanc,
 	Assassin,
 	Pyromane,
+	ChasseurDeVampire,
+	Vampire,
 	Pirate,
 	Bouffon,
 	Sorciere,

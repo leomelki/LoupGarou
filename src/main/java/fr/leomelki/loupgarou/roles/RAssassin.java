@@ -11,9 +11,10 @@ import fr.leomelki.loupgarou.events.LGEndCheckEvent;
 import fr.leomelki.loupgarou.events.LGGameEndEvent;
 import fr.leomelki.loupgarou.events.LGNightEndEvent;
 import fr.leomelki.loupgarou.events.LGNightPlayerPreKilledEvent;
-import fr.leomelki.loupgarou.events.LGPyromaneGasoilEvent;
 import fr.leomelki.loupgarou.events.LGPlayerKilledEvent.Reason;
+import fr.leomelki.loupgarou.events.LGPyromaneGasoilEvent;
 import fr.leomelki.loupgarou.events.LGRoleTurnEndEvent;
+import fr.leomelki.loupgarou.events.LGVampiredEvent;
 
 public class RAssassin extends Role{
 	public RAssassin(LGGame game) {
@@ -77,7 +78,7 @@ public class RAssassin extends Role{
 	
 	@EventHandler
 	public void onKill(LGNightPlayerPreKilledEvent e) {
-		if(e.getKilled().getRole() == this && e.getReason() == Reason.LOUP_GAROU || e.getReason() == Reason.GM_LOUP_GAROU) {//Les assassins ne peuvent pas mourir la nuit !
+		if(e.getKilled().getRole() == this && e.getReason() == Reason.LOUP_GAROU || e.getReason() == Reason.GM_LOUP_GAROU && e.getKilled().isRoleActive()) {//Les assassins ne peuvent pas mourir la nuit !
 			e.setReason(Reason.DONT_DIE);
 			e.getKilled().getCache().set("assassin_protected", true);
 		}
@@ -105,8 +106,13 @@ public class RAssassin extends Role{
 	
 	@EventHandler
 	public void onPyroGasoil(LGPyromaneGasoilEvent e) {
-		if(e.getPlayer().getRole() == this)
+		if(e.getPlayer().getRole() == this && e.getPlayer().isRoleActive())
 			e.setCancelled(true);
+	}
+	@EventHandler
+	public void onVampired(LGVampiredEvent e) {
+		if(e.getPlayer().getRole() == this && e.getPlayer().isRoleActive())
+			e.setImmuned(true);
 	}
 	
 	@EventHandler
@@ -121,8 +127,13 @@ public class RAssassin extends Role{
 	@EventHandler
 	public void onEndgameCheck(LGEndCheckEvent e) {
 		if(e.getGame() == getGame() && e.getWinType() == LGWinType.SOLO) {
-			if(getPlayers().size() > 0)
+			if(getPlayers().size() > 0) {
+				if(getPlayers().size() > 1)
+					for(LGPlayer lgp : getPlayers())
+						if(!lgp.isRoleActive())
+							return;
 				e.setWinType(LGWinType.ASSASSIN);
+			}
 		}
 	}
 	

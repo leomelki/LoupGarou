@@ -26,6 +26,7 @@ public class LGPlayerKilledEvent extends LGEvent implements Cancellable{
 		GM_LOUP_GAROU("§7§l%s§4 est mort pendant la nuit"),
 		LOUP_BLANC(LOUP_GAROU.getMessage()),
 		SORCIERE(LOUP_GAROU.getMessage()),
+		CHASSEUR_DE_VAMPIRE("§7§l%s§4 s'est fait purifier"),
 		VOTE("§7§l%s§4 a été victime du vote"),
 		CHASSEUR("§7§l%s§4 est mort sur le coup"),
 		DICTATOR("§7§l%s§4 a été désigné"),

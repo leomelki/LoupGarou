@@ -52,7 +52,7 @@ public class LGVote {
 	@Getter private final HashMap<LGPlayer, List<LGPlayer>> votes = new HashMap<LGPlayer, List<LGPlayer>>();
 	private int votesSize = 0;
 	private LGPlayer mayor;
-	private ArrayList<LGPlayer> latestTop = new ArrayList<LGPlayer>();
+	private ArrayList<LGPlayer> latestTop = new ArrayList<LGPlayer>(), blacklisted = new ArrayList<LGPlayer>();
 	private final boolean positiveVote, randomIfEqual;
 	@Getter private boolean mayorVote;
     private boolean ended;
@@ -72,6 +72,15 @@ public class LGVote {
 		game.wait(timeout, this::end, generator);
 		for(LGPlayer player : participants)
 			player.choose(getChooseCallback(player));
+	}
+	public void start(List<LGPlayer> participants, List<LGPlayer> viewers, Runnable callback, ArrayList<LGPlayer> blacklisted) {
+		this.callback = callback;
+		this.participants = participants;
+		this.viewers = viewers;
+		game.wait(timeout, this::end, generator);
+		for(LGPlayer player : participants)
+			player.choose(getChooseCallback(player));
+		this.blacklisted = blacklisted;
 	}
 	public void start(List<LGPlayer> participants, List<LGPlayer> viewers, Runnable callback, LGPlayer mayor) {
 		this.callback = callback;
@@ -215,6 +224,10 @@ public class LGVote {
 		};
 	}
 	public void vote(LGPlayer voter, LGPlayer voted) {
+		if(blacklisted.contains(voted)) {
+			voter.sendMessage("§cVous ne pouvez pas votre pour §7§l"+voted.getName()+"§c.");
+			return;
+		}
 		if(voted == voter.getCache().get("vote"))
 			voted = null;
 		
@@ -223,7 +236,7 @@ public class LGVote {
 		if(voter.getCache().has("vote"))
 			votesSize--;
 		
-		if(votesSize == participants.size() && timeout > littleTimeout) {
+		if(votesSize == participants.size() && game.getWaitTicks() > littleTimeout*20) {
 			votesSize = 999;
 			game.wait(littleTimeout, initialTimeout, this::end, generator);
 		}

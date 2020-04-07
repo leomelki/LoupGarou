@@ -11,6 +11,7 @@ import fr.leomelki.loupgarou.classes.LGPlayer.LGChooseCallback;
 import fr.leomelki.loupgarou.events.LGNightPlayerPreKilledEvent;
 import fr.leomelki.loupgarou.events.LGPlayerKilledEvent.Reason;
 import fr.leomelki.loupgarou.events.LGPreDayStartEvent;
+import fr.leomelki.loupgarou.events.LGVampiredEvent;
 
 public class RGarde extends Role{
 	public RGarde(LGGame game) {
@@ -103,6 +104,11 @@ public class RGarde extends Role{
 			e.getKilled().getCache().remove("garde_protected");
 			e.setReason(Reason.DONT_DIE);
 		}
+	}
+	@EventHandler
+	public void onVampired(LGVampiredEvent e) {
+		if(e.getGame() == getGame() && e.getPlayer().getCache().getBoolean("garde_protected"))
+			e.setProtect(true);
 	}
 	@EventHandler
 	public void onDayStart(LGPreDayStartEvent e) {

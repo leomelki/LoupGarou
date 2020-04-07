@@ -282,10 +282,14 @@ public class LGPlayer {
 	}
 	
 	public RoleType getRoleType() {
-		return this.getCache().getBoolean("infected") ? RoleType.LOUP_GAROU : getRole().getType(this);
+		return this.getCache().getBoolean("vampire") ? RoleType.VAMPIRE : this.getCache().getBoolean("infected") ? RoleType.LOUP_GAROU : getRole().getType(this);
 	}
 	public RoleWinType getRoleWinType() {
-		return this.getCache().getBoolean("infected") ? RoleWinType.LOUP_GAROU : getRole().getWinType(this);
+		return this.getCache().getBoolean("vampire") ? RoleWinType.VAMPIRE : this.getCache().getBoolean("infected") ? RoleWinType.LOUP_GAROU : getRole().getWinType(this);
+	}
+	
+	public boolean isRoleActive() {
+		return !this.getCache().getBoolean("vampire");
 	}
 	
 	@Getter

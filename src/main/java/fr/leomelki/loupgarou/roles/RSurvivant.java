@@ -22,6 +22,7 @@ import fr.leomelki.loupgarou.events.LGGameEndEvent;
 import fr.leomelki.loupgarou.events.LGNightPlayerPreKilledEvent;
 import fr.leomelki.loupgarou.events.LGPlayerKilledEvent.Reason;
 import fr.leomelki.loupgarou.events.LGPreDayStartEvent;
+import fr.leomelki.loupgarou.events.LGVampiredEvent;
 import fr.leomelki.loupgarou.utils.VariableCache;
 
 public class RSurvivant extends Role{
@@ -146,15 +147,21 @@ public class RSurvivant extends Role{
 
 	@EventHandler
 	public void onPlayerKill(LGNightPlayerPreKilledEvent e) {
-		if(e.getGame() == getGame() && (e.getReason() == Reason.LOUP_GAROU || e.getReason() == Reason.LOUP_BLANC || e.getReason() == Reason.GM_LOUP_GAROU || e.getReason() == Reason.ASSASSIN) && e.getKilled().getCache().getBoolean("survivant_protected")) {
+		if(e.getGame() == getGame() && (e.getReason() == Reason.LOUP_GAROU || e.getReason() == Reason.LOUP_BLANC || e.getReason() == Reason.GM_LOUP_GAROU || e.getReason() == Reason.ASSASSIN) && e.getKilled().getCache().getBoolean("survivant_protected") && e.getKilled().isRoleActive()) {
 			e.setReason(Reason.DONT_DIE);
 		}
+	}
+	@EventHandler
+	public void onVampired(LGVampiredEvent e) {
+		if(e.getGame() == getGame() && e.getPlayer().getCache().getBoolean("survivant_protected"))
+			e.setProtect(true);
 	}
 	@EventHandler
 	public void onDayStart(LGPreDayStartEvent e) {
 		if(e.getGame() == getGame())
 			for(LGPlayer lgp : getGame().getInGame())
-				lgp.getCache().remove("survivant_protected");
+				if(lgp.isRoleActive())
+					lgp.getCache().remove("survivant_protected");
 	}
 	
 	@EventHandler

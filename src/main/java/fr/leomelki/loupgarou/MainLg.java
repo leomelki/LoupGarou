@@ -56,6 +56,7 @@ import fr.leomelki.loupgarou.roles.RAssassin;
 import fr.leomelki.loupgarou.roles.RBouffon;
 import fr.leomelki.loupgarou.roles.RChaperonRouge;
 import fr.leomelki.loupgarou.roles.RChasseur;
+import fr.leomelki.loupgarou.roles.RChasseurDeVampire;
 import fr.leomelki.loupgarou.roles.RChienLoup;
 import fr.leomelki.loupgarou.roles.RCorbeau;
 import fr.leomelki.loupgarou.roles.RCupidon;
@@ -69,15 +70,18 @@ import fr.leomelki.loupgarou.roles.RLoupGarou;
 import fr.leomelki.loupgarou.roles.RLoupGarouBlanc;
 import fr.leomelki.loupgarou.roles.RLoupGarouNoir;
 import fr.leomelki.loupgarou.roles.RMedium;
+import fr.leomelki.loupgarou.roles.RMontreurDOurs;
 import fr.leomelki.loupgarou.roles.RPetiteFille;
 import fr.leomelki.loupgarou.roles.RPirate;
 import fr.leomelki.loupgarou.roles.RPretre;
 import fr.leomelki.loupgarou.roles.RPyromane;
 import fr.leomelki.loupgarou.roles.RSorciere;
 import fr.leomelki.loupgarou.roles.RSurvivant;
+import fr.leomelki.loupgarou.roles.RVampire;
 import fr.leomelki.loupgarou.roles.RVillageois;
 import fr.leomelki.loupgarou.roles.RVoyante;
 import fr.leomelki.loupgarou.roles.Role;
+import fr.leomelki.loupgarou.utils.VariousUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -100,7 +104,6 @@ public class MainLg extends JavaPlugin{
 			saveConfig();
 		}
 		loadConfig();
-		Bukkit.getConsoleSender().sendMessage("/");
 		Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
 		Bukkit.getPluginManager().registerEvents(new CancelListener(), this);
 		Bukkit.getPluginManager().registerEvents(new VoteListener(), this);
@@ -225,9 +228,23 @@ public class MainLg extends JavaPlugin{
 					sender.sendMessage(prefix+"§aLa position a bien été ajoutée !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("end")) {
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().cancelWait();
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().endGame(LGWinType.EQUAL);
-					LGPlayer.thePlayer(Bukkit.getPlayer(args[1])).getGame().broadcastMessage("§cLa partie a été arrêtée de force !");
+					if(args.length != 2) {
+						sender.sendMessage("§4Utilisation : §c/lg end <pseudo>");
+						return true;
+					}
+					Player selected = Bukkit.getPlayer(args[1]);
+					if(selected == null) {
+						sender.sendMessage("§4Erreur : §cLe joueur §4"+args[1]+"§c n'est pas connecté.");
+						return true;
+					}
+					LGGame game = LGPlayer.thePlayer(selected).getGame();
+					if(game == null) {
+						sender.sendMessage("§4Erreur : §cLe joueur §4"+selected.getName()+"§c n'est pas dans une partie.");
+						return true;
+					}
+					game.cancelWait();
+					game.endGame(LGWinType.EQUAL);
+					game.broadcastMessage("§cLa partie a été arrêtée de force !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("start")) {
 					if(args.length < 2) {
@@ -240,6 +257,10 @@ public class MainLg extends JavaPlugin{
 						return true;
 					}
 					LGPlayer lgp = LGPlayer.thePlayer(player);
+					if(lgp.getGame() == null) {
+						sender.sendMessage("§4Erreur : §cLe joueur §4"+lgp.getName()+"§c n'est pas dans une partie.");
+						return true;
+					}
 					if(MainLg.getInstance().getConfig().getList("spawns").size() < lgp.getGame().getMaxPlayers()) {
 						sender.sendMessage("§4Erreur : §cIl n'y a pas assez de points de spawn !");
 						sender.sendMessage("§8§oPour les définir, merci de faire §7/lg addSpawn");
@@ -413,6 +434,9 @@ public class MainLg extends JavaPlugin{
 			roles.put("Pretre", RPretre.class.getConstructor(LGGame.class));
 			roles.put("Faucheur", RFaucheur.class.getConstructor(LGGame.class));
 			roles.put("EnfantSauvage", REnfantSauvage.class.getConstructor(LGGame.class));
+			roles.put("MontreurDOurs", RMontreurDOurs.class.getConstructor(LGGame.class));
+			roles.put("Vampire", RVampire.class.getConstructor(LGGame.class));
+			roles.put("ChasseurDeVampire", RChasseurDeVampire.class.getConstructor(LGGame.class));
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
