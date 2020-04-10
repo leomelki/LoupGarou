@@ -1,0 +1,17 @@
+name: Build Image
+
+on:
+    push:
+        branches:
+            master
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: docker login --username atomgenie --password $DOCKER_SECRET
+              env:
+                DOCKER_SECRET: ${{ secrets.DOCKER_SECRET }}
+            - run: docker-compose -f ./docker-compose.builder.yaml build
+            - run: docker-compose -f ./docker-compose.builder.yaml push
