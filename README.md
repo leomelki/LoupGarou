@@ -58,23 +58,18 @@ Lien des releases : [Cliquez ici](https://github.com/leomelki/LoupGarou/releases
 
 Vous devez avoir installé `docker` et `docker-compose` sur votre machine
 
-#### Installation du serveur
-```sh
-docker-compose up -d --build
-```
-
 #### Démarage du serveur
 
-Vous devez exécuter la commande suivante à chaque redémarage de votre machine avant de pouvoir continuer
+Pour lancer le serveur, executez cette commande :
 
 ```sh
-docker-compose up -d
+EULA=true docker-compose up -d
 ```
 
-Ainsi, vous pouvez lancer le serveur en utilisant la commande suivante :
+Pour intéragir avec la console Minecraft :
 
 ```sh
-docker-compose exec loup-garou java -jar spigot.jar
+docker-compose exec loup-garou rcon-cli
 ```
 
 Les fichiers relatifs à minecraft se situeront dans le dossier `minecraft_data` 

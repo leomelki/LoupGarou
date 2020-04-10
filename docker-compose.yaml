@@ -2,12 +2,10 @@ version: "3.0"
 
 services:
     loup-garou:
-        build:
-            context: .
-            dockerfile: ./docker/Dockerfile
-            args:
-                SPIGOT_VERSION: 1.15.1
+        image: atomgenie/loup-garou
         volumes:
-            - ./minecraft_data:/minecraft
+            - ./minecraft_data:/data
         ports:
             - 25565:25565
+        environment:
+            - EULA

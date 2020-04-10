@@ -1,0 +1,8 @@
+version: "3.0"
+
+services:
+    loup-garou:
+        image: atomgenie/loup-garou
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile
