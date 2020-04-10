@@ -93,7 +93,11 @@ public class RBouffon extends Role{
 			if(lgp.getPlayer() != null && lgp != player)
 				sj.add(lgp.getName());
 		
-		player.sendMessage("§6§o§l"+sj+"§6§o "+(choosable.size() > 1 ? "ont" : "a")+" voté pour toi.");
+		String toPut = sj.toString();
+		if(toPut.length() == 0)
+			player.sendMessage("§6§o§lPersonne§6§o n'a voté pour toi.");
+		else
+			player.sendMessage("§6§o§l"+toPut+"§6§o "+(toPut.contains(",") ? "ont" : "a")+" voté pour toi.");
 				
 		player.choose((choosen)->{
 			if(choosen != null) {
