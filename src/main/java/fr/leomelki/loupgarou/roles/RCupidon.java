@@ -255,9 +255,11 @@ public class RCupidon extends Role{
 	public void onChat(AsyncPlayerChatEvent e) {
 		LGPlayer player = LGPlayer.thePlayer(e.getPlayer());
 		if(player.getGame() == getGame()) {
-			if(e.getMessage().startsWith("!") && player.getCache().has("inlove")) {
-				player.sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
-				player.getCache().<LGPlayer>get("inlove").sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
+			if(e.getMessage().startsWith("!")) {
+                                if(player.getCache().has("inlove")){
+                                        player.sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
+                                        player.getCache().<LGPlayer>get("inlove").sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
+                                }
 				e.setCancelled(true);
 			}
 		}
