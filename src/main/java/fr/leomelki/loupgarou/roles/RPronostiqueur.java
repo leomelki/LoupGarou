@@ -4,8 +4,8 @@ import fr.leomelki.loupgarou.classes.LGGame;
 import fr.leomelki.loupgarou.classes.LGPlayer;
 import fr.leomelki.loupgarou.classes.LGPlayer.LGChooseCallback;
 
-public class RVoyante extends Role{
-	public RVoyante(LGGame game) {
+public class RPronostiqueur extends Role{
+	public RPronostiqueur(LGGame game) {
 		super(game);
 	}
 	@Override
@@ -18,28 +18,27 @@ public class RVoyante extends Role{
 	}
 	@Override
 	public String getName() {
-		return "§a§lVoyante";
+		return "§a§lPronostiqueur";
 	}
 	@Override
 	public String getFriendlyName() {
-		return "de la "+getName();
+		return "du "+getName();
 	}
 	@Override
 	public String getShortDescription() {
 		return "Tu gagnes avec le §a§lVillage";
 	}
-	
 	@Override
 	public String getDescription() {
-		return "Tu gagnes avec le §a§lVillage§f. Chaque nuit, tu peux espionner un joueur et découvrir sa véritable identité...";
+		return "Tu gagnes avec le §a§lVillage§f. Chaque nuit, tu peux espionner un joueur et découvrir s'il est gentil ou non. Cependant, dans certaines parties, vos pronostiques ne sont pas exacts...";
 	}
 	@Override
 	public String getTask() {
-		return "Choisis un joueur dont tu veux connnaître l'identité.";
+		return "Choisis un joueur sur lequel pronostiquer.";
 	}
 	@Override
 	public String getBroadcastedTask() {
-		return "La "+getName()+"§9 s'apprête à sonder un joueur...";
+		return "Le "+getName()+"§9 s'apprête à pronostiquer...";
 	}
 	@Override
 	public int getTimeout() {
@@ -55,8 +54,9 @@ public class RVoyante extends Role{
 			public void callback(LGPlayer choosen) {
 				if(choosen != null && choosen != player) {
 					//player.sendTitle("§6Vous avez regardé un rôle", "§e§l"+choosen.getName()+"§6§l est §e§l"+choosen.getRole().getName(), 5*20);
-					player.sendActionBarMessage("§e§l"+choosen.getName()+"§6 est §e§l"+choosen.getRole().getName());
-					player.sendMessage("§6Tu découvres que §7§l"+choosen.getName()+"§6 est "+choosen.getRole().getName()+"§6.");
+					String gentilMechant = choosen.getRoleWinType() == RoleWinType.VILLAGE || choosen.getRoleWinType() == RoleWinType.NONE ? "§a§lgentil" : "§c§lméchant";
+					player.sendActionBarMessage("§e§l"+choosen.getName()+"§6 est "+gentilMechant);
+					player.sendMessage("§6Votre instinct vous dit que §7§l"+choosen.getName()+"§6 est "+gentilMechant+"§6.");
 					player.stopChoosing();
 					player.hideView();
 					callback.run();
@@ -68,7 +68,5 @@ public class RVoyante extends Role{
 	protected void onNightTurnTimeout(LGPlayer player) {
 		player.stopChoosing();
 		player.hideView();
-		//player.sendTitle("§cVous n'avez regardé aucun rôle", "§4Vous avez mis trop de temps à vous décider...", 80);
-		//player.sendMessage("§cVous n'avez pas utilisé votre pouvoir cette nuit.");
 	}
 }

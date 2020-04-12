@@ -20,7 +20,7 @@ public class VariousUtils {
 		WorldBorder wb = p.getWorld().getWorldBorder();
 
 		container.getWorldBorderActions().write(0, EnumWrappers.WorldBorderAction.INITIALIZE);
-
+		
 		container.getIntegers().write(0, 29999984);
 
 		container.getDoubles().write(0, p.getLocation().getX());

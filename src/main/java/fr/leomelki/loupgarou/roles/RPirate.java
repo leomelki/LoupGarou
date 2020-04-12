@@ -125,7 +125,7 @@ public class RPirate extends Role{
 		ItemStack item = e.getCurrentItem();
 		Player player = (Player)e.getWhoClicked();
 		LGPlayer lgp = LGPlayer.thePlayer(player);
-			
+		
 		if(lgp.getRole() != this || item == null || item.getItemMeta() == null)return;
 
 		if(item.getItemMeta().getDisplayName().equals(items[3].getItemMeta().getDisplayName())) {
@@ -168,7 +168,7 @@ public class RPirate extends Role{
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerKilled(LGPlayerKilledEvent e) {
 		if(e.getGame() == getGame() && e.getReason() == Reason.VOTE)
-			if(e.getKilled().getCache().has("pirate_otage")) {
+			if(e.getKilled().getCache().has("pirate_otage") && e.getKilled().isRoleActive()) {
 				LGPlayer otage = e.getKilled().getCache().remove("pirate_otage");
 				if(!otage.isDead() && otage.getCache().get("pirate_otage_d") == e.getKilled()) {
 					getGame().broadcastMessage("§7§l"+e.getKilled().getName()+"§6 est "+getName()+"§6, c'est son otage qui va mourir.");

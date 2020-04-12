@@ -108,13 +108,12 @@ public class RPretre extends Role{
 	
 	public void openInventory(Player player) {
 		inMenu = true;
-		Inventory inventory = Bukkit.createInventory(null, 9, "§7Veux-tu réssuciter quelqu'un ?");
+		Inventory inventory = Bukkit.createInventory(null, 9, "§7Veux-tu réssusciter quelqu'un ?");
 		inventory.setContents(items.clone());
 		player.closeInventory();
 		player.openInventory(inventory);
 	}
 	WrappedDataWatcherObject invisible = new WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class));
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onNightTurn(LGPlayer player, Runnable callback) {
 		player.showView();
@@ -183,7 +182,7 @@ public class RPretre extends Role{
 			WrapperPlayServerHeldItemSlot held = new WrapperPlayServerHeldItemSlot();
 			held.setSlot(0);
 			held.sendPacket(player);
-			lgp.sendMessage("§6Choisissez qui réssuciter.");
+			lgp.sendMessage("§6Choisissez qui réssusciter.");
 			lgp.canSelectDead = true;
 			lgp.choose(new LGChooseCallback() {
 				
@@ -202,12 +201,12 @@ public class RPretre extends Role{
 							lgp.stopChoosing();
 							lgp.canSelectDead = false;
 							lgp.sendMessage("§6Tu as ramené §7§l"+choosen.getName()+"§6 à la vie.");
-							lgp.sendActionBarMessage("§7§l"+choosen.getName()+"§6 sera réssucité");
+							lgp.sendActionBarMessage("§7§l"+choosen.getName()+"§6 sera réssuscité");
 							
 							
 							ressucited.add(choosen);
 							getPlayers().remove(lgp);//Pour éviter qu'il puisse sauver plusieurs personnes.
-							choosen.sendMessage("§6Tu vas être réssucité en tant que §a§lVillageois§6.");
+							choosen.sendMessage("§6Tu vas être réssuscité en tant que §a§lVillageois§6.");
 							hidePlayers(lgp);
 							lgp.hideView();
 							callback.run();
@@ -250,7 +249,7 @@ public class RPretre extends Role{
 							villagers = (RVillageois)role;
 					if(villagers == null)
 						getGame().getRoles().add(villagers = new RVillageois(getGame()));
-					villagers.join(lgp, false);//Le joueur réssucité rejoint les villageois.
+					villagers.join(lgp, false);//Le joueur réssuscité rejoint les villageois.
 					lgp.setRole(villagers);
 					lgp.getPlayer().removePotionEffect(PotionEffectType.INVISIBILITY);
 					lgp.getPlayer().getInventory().setHelmet(null);

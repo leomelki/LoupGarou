@@ -92,7 +92,7 @@ public class RChasseur extends Role{
 	
 	@EventHandler
 	public void onPlayerKill(LGPlayerKilledEvent e) {
-		if(e.getKilled().getRole() == this && e.getReason() != Reason.DISCONNECTED)
+		if(e.getKilled().getRole() == this && e.getReason() != Reason.DISCONNECTED && e.getKilled().isRoleActive())
 			needToPlay.add(e.getKilled());
 	}
 	@EventHandler

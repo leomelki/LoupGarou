@@ -58,6 +58,7 @@ import fr.leomelki.loupgarou.roles.RAssassin;
 import fr.leomelki.loupgarou.roles.RBouffon;
 import fr.leomelki.loupgarou.roles.RChaperonRouge;
 import fr.leomelki.loupgarou.roles.RChasseur;
+import fr.leomelki.loupgarou.roles.RChasseurDeVampire;
 import fr.leomelki.loupgarou.roles.RChienLoup;
 import fr.leomelki.loupgarou.roles.RCorbeau;
 import fr.leomelki.loupgarou.roles.RCupidon;
@@ -71,15 +72,18 @@ import fr.leomelki.loupgarou.roles.RLoupGarou;
 import fr.leomelki.loupgarou.roles.RLoupGarouBlanc;
 import fr.leomelki.loupgarou.roles.RLoupGarouNoir;
 import fr.leomelki.loupgarou.roles.RMedium;
+import fr.leomelki.loupgarou.roles.RMontreurDOurs;
 import fr.leomelki.loupgarou.roles.RPetiteFille;
 import fr.leomelki.loupgarou.roles.RPirate;
 import fr.leomelki.loupgarou.roles.RPretre;
 import fr.leomelki.loupgarou.roles.RPyromane;
 import fr.leomelki.loupgarou.roles.RSorciere;
 import fr.leomelki.loupgarou.roles.RSurvivant;
+import fr.leomelki.loupgarou.roles.RVampire;
 import fr.leomelki.loupgarou.roles.RVillageois;
 import fr.leomelki.loupgarou.roles.RVoyante;
 import fr.leomelki.loupgarou.roles.Role;
+import fr.leomelki.loupgarou.utils.VariousUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -105,13 +109,13 @@ public class MainLg extends JavaPlugin{
 		}
 		loadConfig();
 
-                File f = new File(getDataFolder(), "nicks.yml");
-                nicksFile = YamlConfiguration.loadConfiguration(f);
-                try{
-                        nicksFile.save(f);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
+    File f = new File(getDataFolder(), "nicks.yml");
+    nicksFile = YamlConfiguration.loadConfiguration(f);
+      try {
+			  nicksFile.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		Bukkit.getConsoleSender().sendMessage("/");
 		Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
@@ -533,6 +537,9 @@ public class MainLg extends JavaPlugin{
 			roles.put("Pretre", RPretre.class.getConstructor(LGGame.class));
 			roles.put("Faucheur", RFaucheur.class.getConstructor(LGGame.class));
 			roles.put("EnfantSauvage", REnfantSauvage.class.getConstructor(LGGame.class));
+			roles.put("MontreurDOurs", RMontreurDOurs.class.getConstructor(LGGame.class));
+			roles.put("Vampire", RVampire.class.getConstructor(LGGame.class));
+			roles.put("ChasseurDeVampire", RChasseurDeVampire.class.getConstructor(LGGame.class));
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
