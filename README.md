@@ -119,6 +119,10 @@ Il suffit d'ouvrir le fichier `plugins\LoupGarou\config.yml` et de supprimer les
 Cela est possible pour les rôles `Loup-Garou`, `Villageois` et `Chasseur`.
 D'autres rôles peuvent aussi marcher mais n'ont pas été testés avec plusieurs joueurs ayant ce rôle dans une seule partie. C'est à vos risques et périls.
 
+- Le tour du loup noir (ou tout autre type de loup garou) ne passe pas.
+
+Il vous faut au minimum un loup garou normal lorsque vous mettez d'autres types de loups dans la partie.
+
 ## Indications pour les développeurs
 
 Ce plugin LoupGarou ayant été modifié de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre. Aussi, il n'est pas documenté.  
