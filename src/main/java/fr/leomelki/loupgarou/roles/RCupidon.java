@@ -256,10 +256,10 @@ public class RCupidon extends Role{
 		LGPlayer player = LGPlayer.thePlayer(e.getPlayer());
 		if(player.getGame() == getGame()) {
 			if(e.getMessage().startsWith("!")) {
-                                if(player.getCache().has("inlove")){
-                                        player.sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
-                                        player.getCache().<LGPlayer>get("inlove").sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
-                                }else
+				if(player.getCache().has("inlove")){
+					player.sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
+					player.getCache().<LGPlayer>get("inlove").sendMessage("§d\u2764 "+player.getName()+" §6» §f"+e.getMessage().substring(1));
+				}else
 					player.sendMessage("§4Erreur : §cVous n'êtes pas en couple !");
 				e.setCancelled(true);
 			}
