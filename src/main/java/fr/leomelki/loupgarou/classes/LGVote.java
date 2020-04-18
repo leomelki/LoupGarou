@@ -327,16 +327,20 @@ public class LGVote {
 			spawn.setY(loc.getY()+0.3);
 			spawn.setZ(loc.getZ());
 			
-
 			int votesNbr = votes.get(voted).size();
+			final int numberOfParticipants = participants.size();
+			final double votePercentage = (double) (votesNbr / numberOfParticipants) * 100;
+			final String votePercentageFormated = String.format("%.0f%%", votePercentage);
+			final String voteContent = "§6§l" + votesNbr + " / " + numberOfParticipants + "§e vote" + (votesNbr > 1 ? "s" : "") + " (§6§l" + votePercentageFormated + "§e)";
+
 			/*WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
 			meta.setEntityID(entityId);
 			meta.setMetadata(Arrays.asList(new WrappedWatchableObject(invisible, (byte)0x20), new WrappedWatchableObject(noGravity, true), new WrappedWatchableObject(customNameVisible, true), new WrappedWatchableObject(customName, IChatBaseComponent.ChatSerializer.b("§6§l"+votesNbr+"§e vote"+(votesNbr > 1 ? "s" : "")))));
 			*/
 			DataWatcher datawatcher = new DataWatcher(eas);
 			datawatcher.register(T, (byte)0x20);
-	        datawatcher.register(az, Optional.ofNullable(IChatBaseComponent.ChatSerializer.a("{\"text\":\"§6§l"+votesNbr+"§e vote"+(votesNbr > 1 ? "s" : "")+"\"}")));
-	        datawatcher.register(aA, true);
+			datawatcher.register(az, Optional.ofNullable(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + voteContent + "\"}")));
+			datawatcher.register(aA, true);
 			PacketPlayOutEntityMetadata meta = new PacketPlayOutEntityMetadata(entityId, datawatcher, true);
 			
 			for(LGPlayer lgp : viewers) {
