@@ -5,6 +5,7 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,12 +86,13 @@ import fr.leomelki.loupgarou.utils.VariousUtils;
 import lombok.Getter;
 import lombok.Setter;
 
-public class MainLg extends JavaPlugin{
+public class MainLg extends JavaPlugin {
 	private static MainLg instance;
 	@Getter private HashMap<String, Constructor<? extends Role>> roles = new HashMap<String, Constructor<? extends Role>>();
 	@Getter private static String prefix = ""/*"§7[§9Loup-Garou§7] "*/;
 	
 	@Getter @Setter private LGGame currentGame;//Because for now, only one game will be playable on one server (flemme)
+	private static List<String> startingMemes;
 	
 	@Override
 	public void onEnable() {
@@ -99,6 +101,26 @@ public class MainLg extends JavaPlugin{
 		if(!new File(getDataFolder(), "config.yml").exists()) {//Créer la config
 			FileConfiguration config = getConfig();
 			config.set("spawns", new ArrayList<List<Double>>());
+			config.set("startingMemes", new ArrayList<String>(Arrays.asList(
+				"Appuyez sur §bALT+F4§f pour débloquer un skin unique. Cette offre expirera dans 20 minutes.",
+				"Appuyez sur §bF§f pour présenter vos condoléances",
+				"Brossez-vous les dents après chaque repas. Surtout si vous êtes un §bloup-garou§f.",
+				"Connaissez-vous le jeu gratuit §bPath Of Exile§f ?",
+				"Contrairement aux idées reçues, même vos §bmeilleurs amis§f n'auront aucun scrupule à vous immoler ou vous jetter sous un bus à la première occasion",
+				"J'ai vu, je sais qui c'est, mais je ne dirai rien. Surtout pas à vous.",
+				"La §bsorcière§f ne vous sauvera pas : elle ne vous aime pas et ne vous a jamais aimé.",
+				"La sauce barbecue est la meilleure pour vos grillades. Ce message est sponsorisé par votre §bpyromane§f local.",
+				"Les loup-garous tue toujours les mecs §ben face d'eux§f. Sauf quand ils ne le font pas.",
+				"Mangez 5 fruits et légumes par jour. Si vous êtes loup-garou, ajoutez un villagois.",
+				"Ne dévoilez pas votre innocence trop vite, vous risqueriez de vos faire §bdévorer très fort§f",
+				"Pour déconner, le serveur tuera automatiquement la §b1ère personne qui votera§f.",
+				"Quelle différence y a t il entre le §bbon et le mauvais chasseur§f ? Bon y faut expliquer tu vois y'a le §bmauvais chasseur§f, y voit un truc qui bouge y tire, y tire. Le §bbon chasseur§f y voit un truc y tire mais c'est un bon chasseur. Voilà c'est ça on ne peut pas les confondre.",
+				"Si vous mourrez en tant que §bchasseur§f, un §b360 no-scope§f est la plus belle façon d'éliminer quelqu'un qui vous ne pouvez pas piffer",
+				"Un bon §bfaucheur§f est un faucheur mort. Lui, et la moitié de votre village en un coup",
+				"Visitez §bpathofexile.com§f, vous me remercierez plus tard.",
+				"Vous aussi pouvez avoir une vie aussi trépidente que §bl'Inspecteur Derrick§f en endossant le rôle du §bdétective§f",
+				"Vous risquez de finir en §bsandwich§f pour loup-garou. Pas très vegan tout ça.."
+			)));
 			for(String role : roles.keySet())//Nombre de participant pour chaque rôle
 				config.set("role."+role, 1);
 			saveConfig();
@@ -394,11 +416,22 @@ public class MainLg extends JavaPlugin{
 		return returnlist;
 	}
 	public void loadConfig() {
+		final FileConfiguration config = getConfig();
 		int players = 0;
-		for(String role : roles.keySet())
-			players += getConfig().getInt("role."+role);
+		
+		for(String role : roles.keySet()) {
+			players += config.getInt("role." + role);
+		}
+		startingMemes = config.getStringList("startingMemes");
 		currentGame = new LGGame(players);
 	}
+
+	public String getRandomStartingMeme() {
+		return (startingMemes.size() > 0)
+			? "§6N'oubliez pas: §f" + startingMemes.get(ThreadLocalRandom.current().nextInt(startingMemes.size()))
+			: null;
+	}
+
 	@Override
 	public void onDisable() {
 		ProtocolLibrary.getProtocolManager().removePacketListeners(this);
