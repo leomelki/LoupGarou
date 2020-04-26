@@ -329,7 +329,7 @@ public class LGVote {
 			
 			int votesNbr = votes.get(voted).size();
 			final int numberOfParticipants = participants.size();
-			final double votePercentage = (double) (votesNbr / numberOfParticipants) * 100;
+			final double votePercentage =  ((double)votesNbr / numberOfParticipants) * 100;
 			final String votePercentageFormated = String.format("%.0f%%", votePercentage);
 			final String voteContent = "§6§l" + votesNbr + " / " + numberOfParticipants + "§e vote" + (votesNbr > 1 ? "s" : "") + " (§6§l" + votePercentageFormated + "§e)";
 
