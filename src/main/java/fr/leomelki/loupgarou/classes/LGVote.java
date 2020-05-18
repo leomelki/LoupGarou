@@ -53,16 +53,15 @@ public class LGVote {
 	private int votesSize = 0;
 	private LGPlayer mayor;
 	private ArrayList<LGPlayer> latestTop = new ArrayList<LGPlayer>(), blacklisted = new ArrayList<LGPlayer>();
-	private final boolean positiveVote, randomIfEqual;
+	private final boolean randomIfEqual;
 	@Getter private boolean mayorVote;
     private boolean ended;
-	public LGVote(int timeout, int littleTimeout, LGGame game, boolean positiveVote, boolean randomIfEqual, TextGenerator generator) {
+	public LGVote(int timeout, int littleTimeout, LGGame game, boolean randomIfEqual, TextGenerator generator) {
 		this.littleTimeout = littleTimeout;
 		this.initialTimeout = timeout;
 		this.timeout = timeout;
 		this.game = game;
 		this.generator = generator;
-		this.positiveVote = positiveVote;
 		this.randomIfEqual = randomIfEqual;
 	}
 	public void start(List<LGPlayer> participants, List<LGPlayer> viewers, Runnable callback) {
@@ -138,7 +137,7 @@ public class LGVote {
 					choosable.add(entry.getKey());
 			choosen = choosable.get(game.getRandom().nextInt(choosable.size()));
 		}
-		
+
 		if(equal && mayor != null && max != 0) {
 			for(LGPlayer player : viewers)
 				player.sendMessage("§9Égalité, le §5§lCapitaine§9 va départager les votes.");
@@ -148,12 +147,12 @@ public class LGVote {
 			for(Entry<LGPlayer, List<LGPlayer>> entry : votes.entrySet())
 				if(entry.getValue().size() == max)
 					choosable.add(entry.getKey());
-			
+
 			for(int i = 0;i<choosable.size();i++) {
 				LGPlayer lgp = choosable.get(i);
 				showArrow(mayor, lgp, -mayor.getPlayer().getEntityId()-i);
 			}
-			
+
 			StringJoiner sj = new StringJoiner(", ");
 			for(int i = 0;i<choosable.size()-1;i++)
 				sj.add(choosable.get(0).getName());
@@ -185,7 +184,7 @@ public class LGVote {
 				return mayor == player ? "§6Il te reste §e"+secondsLeft+" seconde"+(secondsLeft > 1 ? "s" : "")+"§6 pour délibérer" : "§6Le §5§lCapitaine§6 délibère (§e"+secondsLeft+" s§6)";
 			});
 			mayor.choose(new LGChooseCallback() {
-				
+
 				@Override
 				public void callback(LGPlayer choosen) {
 					if(choosen != null) {
@@ -211,16 +210,16 @@ public class LGVote {
 			game.cancelWait();
 			callback.run();
 		}
-		
+
 	}
 	public LGChooseCallback getChooseCallback(LGPlayer who) {
 		return new LGChooseCallback() {
-			
+
 			@Override
 			public void callback(LGPlayer choosen) {
 				if(choosen != null)
 					vote(who, choosen);
-			}	
+			}
 		};
 	}
 	public void vote(LGPlayer voter, LGPlayer voted) {
@@ -230,12 +229,12 @@ public class LGVote {
 		}
 		if(voted == voter.getCache().get("vote"))
 			voted = null;
-		
+
 		if(voted != null && voter.getPlayer() != null)
 			votesSize++;
 		if(voter.getCache().has("vote"))
 			votesSize--;
-		
+
 		if(votesSize == participants.size() && game.getWaitTicks() > littleTimeout*20) {
 			votesSize = 999;
 			game.wait(littleTimeout, initialTimeout, this::end, generator);
@@ -256,7 +255,7 @@ public class LGVote {
 			updateVotes(devoted);
 			changeVote = true;
 		}
-		
+
 		if(voted != null) {//Si il vient de voter, on ajoute le nouveau vote
 			//voter.sendTitle("", "§7Tu as voté pour §7§l"+voted.getName(), 40);
 			if(votes.containsKey(voted))
@@ -266,7 +265,7 @@ public class LGVote {
 			voter.getCache().set("vote", voted);
 			updateVotes(voted);
 		}
-		
+
 		if(voter.getPlayer() != null) {
 			showVoting(voter, voted);
 			String message;
@@ -282,17 +281,17 @@ public class LGVote {
 				message = "§7§l"+voter.getName()+"§6 a annulé son vote.";
 				voter.sendMessage("§6Tu as annulé ton vote.");
 			}
-			
+
 			for(LGPlayer player : viewers)
 				if(player != voter)
 					player.sendMessage(message);
 		}
 	}
-	
+
 	public List<LGPlayer> getVotes(LGPlayer voted){
 		return votes.containsKey(voted) ? votes.get(voted) : new ArrayList<LGPlayer>(0);
 	}
-	
+
 	private void updateVotes(LGPlayer voted) {
 		updateVotes(voted, false);
 	}
@@ -302,7 +301,7 @@ public class LGVote {
 		destroy.setEntityIds(new int[] {entityId});
 		for(LGPlayer lgp : viewers)
 			destroy.sendPacket(lgp.getPlayer());
-		
+
 		if(!kill) {
 			int max = 0;
 			for(Entry<LGPlayer, List<LGPlayer>> entry : votes.entrySet())
@@ -315,7 +314,7 @@ public class LGVote {
 					latestTop.add(entry.getKey());
 			Bukkit.getPluginManager().callEvent(new LGVoteLeaderChange(game, this, last, latestTop));
 		}
-		
+
 		if(votes.containsKey(voted) && !kill) {
 			Location loc = voted.getPlayer().getLocation();
 
@@ -326,7 +325,7 @@ public class LGVote {
 			spawn.setX(loc.getX());
 			spawn.setY(loc.getY()+0.3);
 			spawn.setZ(loc.getZ());
-			
+
 
 			int votesNbr = votes.get(voted).size();
 			/*WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
@@ -338,20 +337,20 @@ public class LGVote {
 	        datawatcher.register(az, Optional.ofNullable(IChatBaseComponent.ChatSerializer.a("{\"text\":\"§6§l"+votesNbr+"§e vote"+(votesNbr > 1 ? "s" : "")+"\"}")));
 	        datawatcher.register(aA, true);
 			PacketPlayOutEntityMetadata meta = new PacketPlayOutEntityMetadata(entityId, datawatcher, true);
-			
+
 			for(LGPlayer lgp : viewers) {
 				spawn.sendPacket(lgp.getPlayer());
 				((CraftPlayer)lgp.getPlayer()).getHandle().playerConnection.sendPacket(meta);
 			}
-			
-			
+
+
 		/*	EntityArmorStand ea = new EntityArmorStand(((CraftWorld)loc.getWorld()).getHandle(), loc.getX(), loc.getY()+0.3, loc.getZ());
 			ea.setPosition(loc.getX(), loc.getY()+0.3, loc.getZ());
 			ea.setInvisible(true);
 			ea.setCustomNameVisible(true);
 			int votesNbr = votes.get(voted).size();
 			ea.setCustomName((IChatBaseComponent) WrappedChatComponent.fromText("§6§l"+votesNbr+"§e vote"+(votesNbr > 1 ? "s" : "")).getHandle());
-			
+
 			PacketPlayOutSpawnEntityLiving spawn = new PacketPlayOutSpawnEntityLiving(ea);
 			try {
 				Field field = spawn.getClass().getDeclaredField("a");
@@ -401,23 +400,23 @@ public class LGVote {
 			double diffX = loc.getX()-toLoc.getX(),
 				   diffZ = loc.getZ()-toLoc.getZ();
 			float yaw = 180-((float) Math.toDegrees(Math.atan2(diffX, diffZ)));
-			
+
 			spawn.setYaw(yaw);
 			spawn.sendPacket(to.getPlayer());
-			
+
 			WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
 			meta.setEntityID(entityId);
 			meta.setMetadata(Arrays.asList(new WrappedWatchableObject(invisible, (byte)0x20), new WrappedWatchableObject(noGravity, true)));
 			meta.sendPacket(to.getPlayer());
-			
+
 			WrapperPlayServerEntityLook look = new WrapperPlayServerEntityLook();
 			look.setEntityID(entityId);
 			look.setPitch(0);
 			look.setYaw(yaw);
 			look.sendPacket(to.getPlayer());
-			
+
 			new BukkitRunnable() {
-				
+
 				@Override
 				public void run() {
 					WrapperPlayServerEntityEquipment equip = new WrapperPlayServerEntityEquipment();
@@ -430,7 +429,7 @@ public class LGVote {
 			}.runTaskLater(MainLg.getInstance(), 2);
 		}
 	}
-	
+
 	private void showArrow(LGPlayer to, LGPlayer ofWho, int entityId) {
 		WrapperPlayServerEntityDestroy destroy = new WrapperPlayServerEntityDestroy();
 		destroy.setEntityIds(new int[] {entityId});
@@ -449,23 +448,23 @@ public class LGVote {
 			double diffX = loc.getX()-toLoc.getX(),
 				   diffZ = loc.getZ()-toLoc.getZ();
 			float yaw = 180-((float) Math.toDegrees(Math.atan2(diffX, diffZ)));
-			
+
 			spawn.setYaw(yaw);
 			spawn.sendPacket(to.getPlayer());
-			
+
 			WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
 			meta.setEntityID(entityId);
 			meta.setMetadata(Arrays.asList(new WrappedWatchableObject(invisible, (byte)0x20), new WrappedWatchableObject(noGravity, true)));
 			meta.sendPacket(to.getPlayer());
-			
+
 			WrapperPlayServerEntityLook look = new WrapperPlayServerEntityLook();
 			look.setEntityID(entityId);
 			look.setPitch(0);
 			look.setYaw(yaw);
 			look.sendPacket(to.getPlayer());
-			
+
 			new BukkitRunnable() {
-				
+
 				@Override
 				public void run() {
 					WrapperPlayServerEntityEquipment equip = new WrapperPlayServerEntityEquipment();

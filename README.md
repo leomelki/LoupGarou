@@ -1,24 +1,26 @@
-
-
-
-  
+![CI](https://github.com/thecampagnards/LoupGarou/workflows/CI/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=thecampagnards_loup-garou&metric=alert_status)](https://sonarcloud.io/dashboard?id=thecampagnards_loup-garou)
 
 ## Table des matières
 
-- [À propos](#à-propos)
+- [Table des matières](#table-des-mati%c3%a8res)
+- [À propos](#%c3%80-propos)
 - [Jouer facilement](#jouer-facilement)
 - [Installation](#installation)
-  - [Dépendances requises](#dépendances-requises)
+  - [Dépendances requises](#d%c3%a9pendances-requises)
   - [Installation classique](#installation-classique)
   - [Installation avec docker (Alternative)](#installation-avec-docker-alternative)
+    - [Démarage du serveur](#d%c3%a9marage-du-serveur)
+      - [Docker compose](#docker-compose)
+      - [Docker](#docker)
 - [Commandes](#commandes)
-- [Crédits](#crédits)
+- [Crédits](#cr%c3%a9dits)
 - [Aide](#aide)
-  - [Questions fréquentes](#questions-fréquentes)
-- [Indications pour les développeurs](#indications-pour-les-développeurs)
-  - [Ajouter des rôles](#ajouter-des-rôles)
- 	 - [Quelques classes utiles](#quelques-classes-utiles)
-  - [Publier un rôle](#publier-un-rôle)
+  - [Questions fréquentes](#questions-fr%c3%a9quentes)
+- [Indications pour les développeurs](#indications-pour-les-d%c3%a9veloppeurs)
+  - [Ajouter des rôles](#ajouter-des-r%c3%b4les)
+    - [Quelques classes utiles](#quelques-classes-utiles)
+  - [Publier un rôle](#publier-un-r%c3%b4le)
 
 ## À propos
 
@@ -29,6 +31,7 @@ Le mode Loup-Garou est un mode inspiré du jeu de société [Les Loups-Garous de
 - Utilisable sur n'importe quelle map
 
 ## Jouer facilement
+
 Un serveur est mis à votre disposition pour vous permettre de jouer au LoupGarou rapidement et facilement entre amis ou avec des inconnus. Vous avez juste à créer une partie et y inviter vos amis, ou à rejoindre des parties publiques.
 
 **IP:** `lg.leomelki.fr`
@@ -37,58 +40,58 @@ Un serveur est mis à votre disposition pour vous permettre de jouer au LoupGaro
 ## Installation
 
 ### Dépendances requises
+
 - [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
 
 ### Installation classique
-**Minecraft 1.15.1 est requis.**  
+
+**Minecraft 1.15.1 est requis.**
 Pour installer le plug-in, merci de suivre les étapes suivantes:
-  - Téléchargez Spigot 1.15.1 et lancez une fois le serveur
-  - Dans le dossier `plugins`, insérez [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) et [LoupGarou.jar](https://github.com/leomelki/LoupGarou/releases)
-  - Redémarrez votre serveur puis donnez vous les permissions administrateur (/op <votre_pseudo> dans la console)
-  - Allez sur la map et ajoutez les points de spawn sur chaque dalle `/lg addSpawn`
-  - Connectez-vous au serveur et choisissez les rôles à utiliser avec `/lg roles set <ROLE> <MONTANT>`
-	  - ⚠️ Il faut qu'il y ait autant de places dans les rôles que de joueur pour lancer une partie
-  - Vous pouvez démarrer la partie avec `/lg start <pseudo>` 
-	  - ⚠️ N'oubliez pas de mettre votre pseudo. Exemple : `/lg start leomelki` 
+
+- Téléchargez Spigot 1.15.1 et lancez une fois le serveur
+- Dans le dossier `plugins`, insérez [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) et [LoupGarou.jar](https://github.com/leomelki/LoupGarou/releases)
+- Redémarrez votre serveur puis donnez vous les permissions administrateur (/op <votre_pseudo> dans la console)
+- Allez sur la map et ajoutez les points de spawn sur chaque dalle `/lg addSpawn`
+- Connectez-vous au serveur et choisissez les rôles à utiliser avec `/lg roles set <ROLE> <MONTANT>`
+  - ⚠️ Il faut qu'il y ait autant de places dans les rôles que de joueur pour lancer une partie
+- Vous pouvez démarrer la partie avec `/lg start <pseudo>`
+  - ⚠️ N'oubliez pas de mettre votre pseudo. Exemple : `/lg start leomelki`
 
 Lien des releases : [Cliquez ici](https://github.com/leomelki/LoupGarou/releases)
 
-
 ### Installation avec docker (Alternative)
 
-Vous devez avoir installé `docker` et `docker-compose` sur votre machine
-
-#### Installation du serveur
-```sh
-docker-compose up -d --build
-```
+Vous devez avoir installé `docker` sur votre machine
 
 #### Démarage du serveur
 
 Vous devez exécuter la commande suivante à chaque redémarage de votre machine avant de pouvoir continuer
 
+##### Docker compose
+
 ```sh
 docker-compose up -d
 ```
 
-Ainsi, vous pouvez lancer le serveur en utilisant la commande suivante :
+Les fichiers relatifs à minecraft se situeront dans le dossier `minecraft_data`
+
+##### Docker
 
 ```sh
-docker-compose exec loup-garou java -jar spigot.jar
+docker run --name loup-garou -v "$(pwd)/minecraft_data:/minecraft" -p 25565:25565 -e EULA=true -d thecampagnards/loup-garou:latest
 ```
 
-Les fichiers relatifs à minecraft se situeront dans le dossier `minecraft_data` 
-> **Tip :** Il faut accepter les conditions d'utilisations de Mojang en modifiant le fichier `minecraft_data/eula.txt`
+Les fichiers relatifs à minecraft se situeront dans le dossier `minecraft_data`
 
 ## Commandes
 
-`/lg roles` : Retourne la liste des rôles dans la partie  
-`/lg roles set <ID> <MONTANT>` : Définit le nombre de joueurs pour un certain rôle  
-`/lg addSpawn` : Ajoute un point de spawn (emplacement de joueur)  
-`/lg start <PSEUDO>` : Lance la partie  
-`/lg end <PSEUDO>` : Arrête une partie  
-`/lg reloadConfig` : Recharge la configuration  
-`/lg joinAll` : À utiliser après avoir changé les rôles  
+`/lg roles` : Retourne la liste des rôles dans la partie
+`/lg roles set <ID> <MONTANT>` : Définit le nombre de joueurs pour un certain rôle
+`/lg addSpawn` : Ajoute un point de spawn (emplacement de joueur)
+`/lg start <PSEUDO>` : Lance la partie
+`/lg end <PSEUDO>` : Arrête une partie
+`/lg reloadConfig` : Recharge la configuration
+`/lg joinAll` : À utiliser après avoir changé les rôles
 
 ## Crédits
 
@@ -102,15 +105,15 @@ Par soucis de temps, nous ne pouvons pas faire de support au cas par cas, mais v
 
 ### Questions fréquentes
 
-- Que faire en cas de problème d'affichage (votes bloqués au dessus des têtes, etc...) ?  
+- Que faire en cas de problème d'affichage (votes bloqués au dessus des têtes, etc...) ?
 
 Cela arrive après avoir `reload` au cours d'une partie, tous les joueurs qui ont ce problème doivent se déconnecter et se reconnecter.
 
-- Pourquoi la partie ne se lance pas ?  
+- Pourquoi la partie ne se lance pas ?
 
 Il faut taper la commande `/lg start <PSEUDO>` en mettant le pseudo d'un des joueurs qui sera présent dans la partie. Si cela ne fonctionne toujours pas, c'est parce qu'il n'y a pas suffisamment de rôles pour le nombre de joueurs, il doit y avoir le même nombre de rôles qu'il y aura de joueurs dans la partie. N'oubliez pas de taper `/lg joinAll` après avoir modifié la liste des rôles.
 
-- J'ai mal placés mes spawns ou je veux utiliser une nouvelle map, comment faire ?  
+- J'ai mal placés mes spawns ou je veux utiliser une nouvelle map, comment faire ?
 
 Il suffit d'ouvrir le fichier `plugins\LoupGarou\config.yml` et de supprimer les points de spawn.
 
@@ -125,28 +128,29 @@ Il vous faut au minimum un loup garou normal lorsque vous mettez d'autres types 
 
 ## Indications pour les développeurs
 
-Ce plugin LoupGarou ayant été modifié de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre. Aussi, il n'est pas documenté.  
+Ce plugin LoupGarou ayant été modifié de nombreuses fois, parfois dans des timings tendus, le code n'est pas très propre. Aussi, il n'est pas documenté.
 
-Vous devez utiliser `Lombok` et `Maven` pour modifier ce projet. 
+Vous devez utiliser `Lombok` et `Maven` pour modifier ce projet.
 Vous devez aussi installer la repository `Spigot` avec [BuildTools](https://www.spigotmc.org/wiki/buildtools/).
 
 **Cependant, si l'envie vous prend de modifier ou d'utiliser le code ici présent en partie, ou dans sa totalité, merci de créditer [Leomelki](https://twitter.com/leomelki) et [Shytoos](https://twitter.com/shytoos_).**
 
 ### Ajouter des rôles
 
-Ce plugin de Loup-Garou est organisé autour d'un système d'événements, disponibles dans le package `fr.leomelki.loupgarou.events`.  
+Ce plugin de Loup-Garou est organisé autour d'un système d'événements, disponibles dans le package `fr.leomelki.loupgarou.events`.
 N'ayant pas le temps de les documenter, vous devriez comprendre vous-même quand ils sont appelés.
 
 Pour vous aider à créer des rôles, copiez des rôles ayant déjà été créés pour ainsi les modifier.
 
-⚠️ Ce projet a été créé de façon à ce que les rôles soient (presque) totalement indépendants du reste du code (LGGame, LGPlayer...).  
+⚠️ Ce projet a été créé de façon à ce que les rôles soient (presque) totalement indépendants du reste du code (LGGame, LGPlayer...).
 Merci de garder cela en tête lors du développement de nouveaux rôles : utilisez un maximum les évènements et, s'il en manque, créez-les !
 
 #### Quelques classes utiles
-`LGGame` : Contient le coeur du jeu, à modifier le minimum possible !  
-`LGPlayer` : Classe utilisée pour intéragir avec les joueurs et stocker leurs données, à modifier le minimum possible !  
-`LGVote` : Système gérant les votes.  
-`RoleSort`: Classement de l'apparition des rôles durant la nuit. 
+
+`LGGame` : Contient le coeur du jeu, à modifier le minimum possible !
+`LGPlayer` : Classe utilisée pour intéragir avec les joueurs et stocker leurs données, à modifier le minimum possible !
+`LGVote` : Système gérant les votes.
+`RoleSort`: Classement de l'apparition des rôles durant la nuit.
 
 ### Publier un rôle
 

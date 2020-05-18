@@ -81,7 +81,7 @@ public class RVampire extends Role{
 	public boolean hasPlayersLeft() {
 		return nextCanInfect < getGame().getNight() && super.hasPlayersLeft();
 	}
-	
+
 	@Getter private LGChat chat = new LGChat((sender, message) -> {
 		return "§5"+sender.getName()+" §6» §f"+message;
 	});
@@ -95,7 +95,7 @@ public class RVampire extends Role{
 	}
 
 	public void onNightTurn(Runnable callback) {
-		vote = new LGVote(getTimeout(), getTimeout()/3, getGame(), false, false, (player, secondsLeft)-> {
+		vote = new LGVote(getTimeout(), getTimeout()/3, getGame(), false, (player, secondsLeft)-> {
 			return !getPlayers().contains(player) ? "§6C'est au tour "+getFriendlyName()+" §6(§e"+secondsLeft+" s§6)" : player.getCache().has("vote") ? "§l§9Vous votez pour §c§l"+player.getCache().<LGPlayer>get("vote").getName() : "§6Il vous reste §e"+secondsLeft+" seconde"+(secondsLeft > 1 ? "s" : "")+"§6 pour voter";
 		});
 		for(LGPlayer lgp : getGame().getAlive())
@@ -152,7 +152,7 @@ public class RVampire extends Role{
 				getGame().kill(getPlayers().get(getPlayers().size()-1), Reason.CHASSEUR_DE_VAMPIRE);
 				return;
 			}
-			
+
 			LGVampiredEvent event = new LGVampiredEvent(getGame(), choosen);
 			Bukkit.getPluginManager().callEvent(event);
 			if(event.isImmuned()) {
@@ -189,13 +189,13 @@ public class RVampire extends Role{
 						else
 							lgp.sendMessage("§6Quelqu'un s'est transformé en §5§lVampire§6...");
 					}
-					
+
 					if(getGame().checkEndGame())
 						e.setCancelled(true);
 				}
 			}
 	}
-	
+
 /*	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onSkinChange(LGSkinLoadEvent e) {
 		if(e.getGame() == getGame())
@@ -211,19 +211,19 @@ public class RVampire extends Role{
 				if(lgp.getRoleWinType() == RoleWinType.VAMPIRE)//Changed to wintype
 					e.getWinners().add(lgp);
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onUpdatePrefix (LGUpdatePrefixEvent e) {
 		if(e.getGame() == getGame())
 			if(getPlayers().contains(e.getTo()) && getPlayers().contains(e.getPlayer()))
 				e.setPrefix(e.getPrefix()+"§5");
 	}
-	
+
 	@EventHandler
 	public void onCustomItemChange(LGCustomItemChangeEvent e) {
 		if(e.getGame() == getGame())
 			if(e.getPlayer().getCache().getBoolean("vampire"))
 				e.getConstraints().add(LGCustomItemsConstraints.VAMPIRE_INFECTE.getName());
 	}
-	
+
 }
