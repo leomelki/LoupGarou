@@ -29,7 +29,6 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.injector.PacketConstructor;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	public static final PacketType TYPE =
@@ -61,7 +60,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve entity ID.
-	 * 
+	 *
 	 * @return The current EID
 	 */
 	public int getEntityID() {
@@ -70,7 +69,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity that will be spawned.
-	 * 
+	 *
 	 * @param world - the current world of the entity.
 	 * @return The spawned entity.
 	 */
@@ -80,7 +79,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity that will be spawned.
-	 * 
+	 *
 	 * @param event - the packet event.
 	 * @return The spawned entity.
 	 */
@@ -98,7 +97,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set entity ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setEntityID(int value) {
@@ -107,7 +106,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the type of mob.
-	 * 
+	 *
 	 * @return The current Type
 	 */
 	@SuppressWarnings("deprecation")
@@ -117,7 +116,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the type of mob.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	@SuppressWarnings("deprecation")
@@ -129,7 +128,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * Retrieve the x position of the object.
 	 * <p>
 	 * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-	 * 
+	 *
 	 * @return The current X
 	 */
 	public double getX() {
@@ -138,7 +137,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the x position of the object.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
@@ -149,7 +148,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * Retrieve the y position of the object.
 	 * <p>
 	 * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-	 * 
+	 *
 	 * @return The current y
 	 */
 	public double getY() {
@@ -158,7 +157,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the y position of the object.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
@@ -169,7 +168,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * Retrieve the z position of the object.
 	 * <p>
 	 * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-	 * 
+	 *
 	 * @return The current z
 	 */
 	public double getZ() {
@@ -178,7 +177,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the z position of the object.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
@@ -187,7 +186,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the yaw.
-	 * 
+	 *
 	 * @return The current Yaw
 	 */
 	public float getYaw() {
@@ -196,7 +195,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the yaw of the spawned mob.
-	 * 
+	 *
 	 * @param value - new yaw.
 	 */
 	public void setYaw(float value) {
@@ -205,7 +204,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the pitch.
-	 * 
+	 *
 	 * @return The current pitch
 	 */
 	public float getPitch() {
@@ -214,7 +213,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the pitch of the spawned mob.
-	 * 
+	 *
 	 * @param value - new pitch.
 	 */
 	public void setPitch(float value) {
@@ -223,7 +222,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the yaw of the mob's head.
-	 * 
+	 *
 	 * @return The current yaw.
 	 */
 	public float getHeadPitch() {
@@ -232,7 +231,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the yaw of the mob's head.
-	 * 
+	 *
 	 * @param value - new yaw.
 	 */
 	public void setHeadPitch(float value) {
@@ -241,7 +240,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the velocity in the x axis.
-	 * 
+	 *
 	 * @return The current velocity X
 	 */
 	public double getVelocityX() {
@@ -250,7 +249,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the velocity in the x axis.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVelocityX(double value) {
@@ -259,7 +258,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the velocity in the y axis.
-	 * 
+	 *
 	 * @return The current velocity y
 	 */
 	public double getVelocityY() {
@@ -268,7 +267,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the velocity in the y axis.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVelocityY(double value) {
@@ -277,7 +276,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the velocity in the z axis.
-	 * 
+	 *
 	 * @return The current velocity z
 	 */
 	public double getVelocityZ() {
@@ -286,7 +285,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the velocity in the z axis.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVelocityZ(double value) {
@@ -297,7 +296,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * Retrieve the data watcher.
 	 * <p>
 	 * Content varies by mob, see Entities.
-	 * 
+	 *
 	 * @return The current Metadata
 	 */
 /*	public WrappedDataWatcher getMetadata() {
@@ -306,7 +305,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the data watcher.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	/*public void setMetadata(WrappedDataWatcher value) {

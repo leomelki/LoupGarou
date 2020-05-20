@@ -70,7 +70,7 @@ public class RLoupGarou extends Role{
 	public int getTimeout() {
 		return 30;
 	}
-	
+
 	@Getter private LGChat chat = new LGChat((sender, message) -> {
 		return "§c"+sender.getName()+" §6» §f"+message;
 	});
@@ -86,7 +86,7 @@ public class RLoupGarou extends Role{
 	}
 
 	public void onNightTurn(Runnable callback) {
-		vote = new LGVote(getTimeout(), getTimeout()/3, getGame(), false, false, (player, secondsLeft)-> {
+		vote = new LGVote(getTimeout(), getTimeout()/3, getGame(), false, (player, secondsLeft)-> {
 			return !getPlayers().contains(player) ? "§6C'est au tour "+getFriendlyName()+" §6(§e"+secondsLeft+" s§6)" : player.getCache().has("vote") ? "§l§9Vous votez contre §c§l"+player.getCache().<LGPlayer>get("vote").getName() : "§6Il vous reste §e"+secondsLeft+" seconde"+(secondsLeft > 1 ? "s" : "")+"§6 pour voter";
 		});
 		for(LGPlayer lgp : getGame().getAlive())
@@ -141,19 +141,19 @@ public class RLoupGarou extends Role{
 			for(LGPlayer player : getPlayers())
 				player.sendMessage("§6Personne n'a été désigné pour mourir.");
 	}
-	
+
 	@EventHandler
 	public void onGameJoin(LGGameEndEvent e) {
 		if(e.getGame() == getGame()) {
 			WrapperPlayServerScoreboardTeam teamDelete = new WrapperPlayServerScoreboardTeam();
 			teamDelete.setMode(1);
 			teamDelete.setName("loup_garou_list");
-			
+
 			for(LGPlayer lgp : getGame().getInGame())
 				teamDelete.sendPacket(lgp.getPlayer());
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onSkinChange(LGSkinLoadEvent e) {
 		if(e.getGame() == getGame())
@@ -169,14 +169,14 @@ public class RLoupGarou extends Role{
 				if(lgp.getRoleWinType() == RoleWinType.LOUP_GAROU)//Changed to wintype
 					e.getWinners().add(lgp);
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onUpdatePrefix (LGUpdatePrefixEvent e) {
 		if(e.getGame() == getGame())
 			if(getPlayers().contains(e.getTo()) && getPlayers().contains(e.getPlayer()))
 				e.setPrefix(e.getPrefix()+"§c");
 	}
-	
+
 	@EventHandler
 	public void onDay(LGNightEndEvent e) {
 		if(e.getGame() == getGame()) {
@@ -193,5 +193,5 @@ public class RLoupGarou extends Role{
 				player.updateOwnSkin();
 		}
 	}
-	
+
 }

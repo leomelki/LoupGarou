@@ -2,11 +2,9 @@ version: "3.0"
 
 services:
     loup-garou:
-        build:
-            context: .
-            dockerfile: ./docker/Dockerfile
-            args:
-                SPIGOT_VERSION: 1.15.1
+        image: thecampagnards/loup-garou:latest
+        environment:
+            - EULA
         volumes:
             - ./minecraft_data:/minecraft
         ports:
