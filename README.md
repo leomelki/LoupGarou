@@ -155,6 +155,8 @@ Merci de garder cela en tête lors du développement de nouveaux rôles : utilis
 Si vous arrivez à créer un rôle, je vous invite à faire une demande de publication dans cette repo afin de les faire partager à l'ensemble de la communauté !
 
 # License
+[![License Logo (CC BY-NC)](https://licensebuttons.net/l/by-nc/3.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/legalcode.fr)
+
 Creative Commons BY-NC (https://creativecommons.org/licenses/by-nc/4.0/)
 
 Informations légales : https://creativecommons.org/licenses/by-nc/4.0/legalcode
