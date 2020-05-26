@@ -19,6 +19,7 @@
   - [Ajouter des rôles](#ajouter-des-rôles)
  	 - [Quelques classes utiles](#quelques-classes-utiles)
   - [Publier un rôle](#publier-un-rôle)
+- [License](#license)
 
 ## À propos
 
@@ -130,7 +131,8 @@ Ce plugin LoupGarou ayant été modifié de nombreuses fois, parfois dans des ti
 Vous devez utiliser `Lombok` et `Maven` pour modifier ce projet. 
 Vous devez aussi installer la repository `Spigot` avec [BuildTools](https://www.spigotmc.org/wiki/buildtools/).
 
-**Cependant, si l'envie vous prend de modifier ou d'utiliser le code ici présent en partie, ou dans sa totalité, merci de créditer [Leomelki](https://twitter.com/leomelki) et [Shytoos](https://twitter.com/shytoos_).**
+**Cependant, si l'envie vous prend de modifier ou d'utiliser le code ici présent en partie, ou dans sa totalité, merci de créditer [Leomelki](https://twitter.com/leomelki) et [Shytoos](https://twitter.com/shytoos_).
+Une utilisation commerciale est cependant interdite. Merci de vous référer aux informations de [license](#license)**
 
 ### Ajouter des rôles
 
@@ -151,3 +153,8 @@ Merci de garder cela en tête lors du développement de nouveaux rôles : utilis
 ### Publier un rôle
 
 Si vous arrivez à créer un rôle, je vous invite à faire une demande de publication dans cette repo afin de les faire partager à l'ensemble de la communauté !
+
+# License
+Creative Commons BY-NC (https://creativecommons.org/licenses/by-nc/4.0/)
+
+Informations légales : https://creativecommons.org/licenses/by-nc/4.0/legalcode
