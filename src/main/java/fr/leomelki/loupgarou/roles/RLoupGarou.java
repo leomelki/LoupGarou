@@ -134,7 +134,8 @@ public class RLoupGarou extends Role{
 			}
 		}
 		if(choosen != null) {
-			getGame().kill(choosen, Reason.LOUP_GAROU);
+			if (!choosen.getCache().getBoolean("garde_protected"))
+				getGame().kill(choosen, Reason.LOUP_GAROU);
 			for(LGPlayer player : getPlayers())
 				player.sendMessage("§6Les §c§lLoups§6 ont décidé de tuer §7§l"+choosen.getName()+"§6.");
 		}else
