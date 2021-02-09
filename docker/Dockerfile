@@ -12,7 +12,7 @@ RUN java -Xmx1024M -jar buildtools.jar --rev ${SPIGOT_VERSION}
 # Build Loup-Garou project
 FROM maven:3.3-jdk-8 as LOUP_GAROU_BUILDER
 WORKDIR /app
-COPY --from=SPIGOT_BUILDER /root/.m2/repository/org/spigotmc/spigot /root/.m2/repository/org/spigotmc/spigot
+COPY --from=SPIGOT_BUILDER /root/.m2/repository/org/spigotmc/ /root/.m2/repository/org/spigotmc/
 COPY . .
 RUN mvn clean install
 RUN mvn package
