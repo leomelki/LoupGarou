@@ -189,20 +189,20 @@ public class RPretre extends Role{
 				@Override
 				public void callback(LGPlayer choosen) {
 					if(choosen != null) {
+						final String choosenName = choosen.getName();
 						if(!choosen.isDead())
-							lgp.sendMessage("§7§l"+choosen.getName()+"§c n'est pas mort.");
+							lgp.sendMessage("§7§l"+choosenName+"§c n'est pas mort.");
 						else if(lgp.getRoleType() == RoleType.LOUP_GAROU && choosen.getRoleType() == RoleType.NEUTRAL) {
-							lgp.sendMessage("§7§l"+choosen.getName()+"§c ne faisait ni partie du §a§lVillage§6 ni des §c§lLoups§6.");
+							lgp.sendMessage("§7§l"+choosenName+"§c ne faisait ni partie du §a§lVillage§6 ni des §c§lLoups§6.");
 						}else if(lgp.getRoleType() != RoleType.LOUP_GAROU && choosen.getRoleType() != RoleType.VILLAGER) {
-							lgp.sendMessage("§7§l"+choosen.getName()+"§c ne faisait pas partie du §a§lVillage§6.");
+							lgp.sendMessage("§7§l"+choosenName+"§c ne faisait pas partie du §a§lVillage§6.");
 						} else {
 							player.getInventory().setItem(8, null);
 							player.updateInventory();
 							lgp.stopChoosing();
 							lgp.canSelectDead = false;
-							lgp.sendMessage("§6Tu as ramené §7§l"+choosen.getName()+"§6 à la vie.");
-							lgp.sendActionBarMessage("§7§l"+choosen.getName()+"§6 sera réssuscité");
-							
+							lgp.sendMessage("§6Tu as ramené §7§l"+choosenName+"§6 à la vie.");
+							lgp.sendActionBarMessage("§7§l"+choosenName+"§6 sera réssuscité");
 							
 							ressucited.add(choosen);
 							getPlayers().remove(lgp);//Pour éviter qu'il puisse sauver plusieurs personnes.
@@ -210,6 +210,10 @@ public class RPretre extends Role{
 							hidePlayers(lgp);
 							lgp.hideView();
 							callback.run();
+
+							final String resurectionLog = lgp.getName() + " a réssuscité " + choosenName;
+
+							System.out.println(resurectionLog.replaceAll("\\§.", ""));
 						}
 					}
 				}
