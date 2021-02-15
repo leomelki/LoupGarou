@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -607,13 +608,32 @@ public class LGGame implements Listener{
 				lgp.getPlayer().closeInventory();
 		
 		cancelWait();//Also avoid bugs
-		
 		ended = true;
-		//We unregister every role listener because they are unused after the game's end !
-		for(Role role : getRoles())
-			HandlerList.unregisterAll(role);
+
+		final Boolean shouldDisplayWinners = (winners.size() >= 1);
 		
+		broadcastSpacer();
+		broadcastMessage("§9----------- §lFIN DE LA PARTIE -----------");
 		broadcastMessage(winType.getMessage());
+
+		if (shouldDisplayWinners) {
+			final List<String> winnerNames = winners.stream().map(lgp -> lgp.getName()).collect(Collectors.toList());
+			final String winnersFriendlyName = (winners.size() > 1) ? "aux vainqueurs" : "au vainqueur";
+			broadcastMessage("§6§l§oFélicitations " + winnersFriendlyName + ": §7§l" + String.join(", ", winnerNames));
+		}
+
+		broadcastSpacer();
+		broadcastMessage("§e§lLa composition du village à cette partie était la suivante");
+		
+		//We unregister every role listener because they are unused after the game's end !
+		for(Role role : getRoles()) {
+			final List<String> playerNames = role.getPlayersThisRound().stream().map(lgp -> lgp.getName()).collect(Collectors.toList());
+			broadcastMessage("§e - " + role.getName() + " §e: §7§l" + String.join(", ", playerNames));
+			HandlerList.unregisterAll(role);
+		}
+
+		broadcastSpacer();
+
 		for(LGPlayer lgp : getInGame()) {
 			lgp.leaveChat();
 			lgp.joinChat(spectatorChat);
@@ -629,7 +649,6 @@ public class LGGame implements Listener{
 					lgp.sendTitle("§7§lÉgalité", "§8Personne n'a gagné...", 200);
 				else
 					lgp.sendTitle("§c§lDéfaite...", "§4Vous avez perdu la partie.", 200);
-			
 			
 			Player p = lgp.getPlayer();
 			lgp.showView();

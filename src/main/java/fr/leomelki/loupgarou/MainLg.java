@@ -228,11 +228,10 @@ public class MainLg extends JavaPlugin{
 					sender.sendMessage(prefix+"§aLa position a bien été ajoutée !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("end")) {
-					if(args.length != 2) {
-						sender.sendMessage("§4Utilisation : §c/lg end <pseudo>");
-						return true;
-					}
-					Player selected = Bukkit.getPlayer(args[1]);
+					Player selected = (args.length == 2)
+						? Bukkit.getPlayer(args[1])
+						: (Player)sender;
+
 					if(selected == null) {
 						sender.sendMessage("§4Erreur : §cLe joueur §4"+args[1]+"§c n'est pas connecté.");
 						return true;
@@ -247,11 +246,10 @@ public class MainLg extends JavaPlugin{
 					game.broadcastMessage("§cLa partie a été arrêtée de force !");
 					return true;
 				}else if(args[0].equalsIgnoreCase("start")) {
-					if(args.length < 2) {
-						sender.sendMessage("§4Utilisation : §c/lg start <pseudo>");
-						return true;
-					}
-					Player player = Bukkit.getPlayer(args[1]);
+					Player player = (args.length == 2)
+						? Bukkit.getPlayer(args[1])
+						: (Player)sender;
+
 					if(player == null) {
 						sender.sendMessage("§4Erreur : §cLe joueur §4"+args[1]+"§c n'existe pas !");
 						return true;
