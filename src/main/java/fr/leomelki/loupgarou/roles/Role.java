@@ -18,6 +18,7 @@ import lombok.Setter;
 public abstract class Role implements Listener{
 	@Getter @Setter private int waitedPlayers;
 	@Getter private ArrayList<LGPlayer> players = new ArrayList<LGPlayer>();
+	@Getter private ArrayList<LGPlayer> playersThisRound = new ArrayList<LGPlayer>();
 	@Getter private final LGGame game;
 	
 	public Role(LGGame game) {
@@ -95,6 +96,7 @@ public abstract class Role implements Listener{
 	public void join(LGPlayer player, boolean sendMessage) {
 		System.out.println(player.getName()+" est "+getName());
 		players.add(player);
+		playersThisRound.add(player);
 		if(player.getRole() == null)
 			player.setRole(this);
 		waitedPlayers--;
